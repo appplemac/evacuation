@@ -8,6 +8,4 @@ package com.company;
  * To change this template use File | Settings | File Templates.
  */
 public class DummyClass {
-    void main() {
-    }
 }
