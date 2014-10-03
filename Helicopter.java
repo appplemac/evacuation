@@ -57,9 +57,6 @@ public class Helicopter {
     }
 
     public void addToItinerary(Group group) throws Exception {
-        if (!itFits(group.getNumPeople())) {
-            throw new Exception("Too many people");
-        }
         itinerary.add(group);
         capacity -= group.getNumPeople();
     }

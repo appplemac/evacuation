@@ -6,24 +6,25 @@
 
 package com.company;
 import java.util.ArrayList;
-import java.util.ListIterator;
+
 /**
  *
  * @author Usuario
  */
-public class GroupOfHeadquarters {
-    private ArrayList<Headquarter> HQ;
+public class State {
+    private ArrayList<Headquarter> hqs;
+    private ArrayList<Group> groups;
 
-    public GroupOfHeadquarters(ArrayList<Headquarter> hq) {
-        HQ = hq;
+    public State(ArrayList<Headquarter> hq) {
+        hqs = hq;
     }
 
-    public GroupOfHeadquarters(int n){
-        HQ = new ArrayList<Headquarter> (n);
+    public State(int n){
+        hqs = new ArrayList<Headquarter> (n);
     }
         
     public void MakeAssignment (int identHel, int identHQ){
-        for ( Headquarter  i: HQ){
+        for ( Headquarter  i: hqs){
             if (i.getident() ==identHQ){
                 i.getHelicopters().add(identHel);                
             }
@@ -31,20 +32,18 @@ public class GroupOfHeadquarters {
     }
     
     public void addHQ(Headquarter hq){
-        HQ.add(hq);
+        hqs.add(hq);
     }
     
     public ArrayList<Headquarter> getHQs(){
-        return HQ;
+        return hqs;
     }
-    
-    public  ArrayList<Integer> getHQHelicopters(int identHQ){
-          for ( Headquarter  i: HQ){
-            if (i.getident() ==identHQ){
-                return i.getHelicopters();                
-            }
+
+    public int getNumHelicopters() {
+        int count = 0;
+        for (Headquarter hq: hqs) {
+            count += hq.getNumHelicopters();
         }
-        return null;
+        return count;
     }
-    
 }

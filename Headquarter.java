@@ -14,26 +14,30 @@ public class Headquarter {
     private int HQcoordx;
     private int HQcoordy;
     private int HQident;
-    private ArrayList<Integer> Helicopters;
+    private ArrayList<Helicopter> helicopters;
     
     
     public Headquarter(int id,int x, int y){
         HQident = id;
         HQcoordx= x;
         HQcoordy = y;
-        Helicopters = new ArrayList<Integer>();
+        helicopters = new ArrayList<Helicopter>();
     }
     
     public int getident(){
         return HQident;
     }
     
-    public ArrayList<Integer> getHelicopters(){
-        return Helicopters;
+    public ArrayList<Helicopter> getHelicopters(){
+        return helicopters;
+    }
+
+    public int getNumHelicopters() {
+        return helicopters.size();
     }
     
-    public void addHeli(int n){
-        Helicopters.add(n);
+    public void addHeli(Helicopter h){
+        helicopters.add(h);
     }
     
     public String getcoordHQ(){

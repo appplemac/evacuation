@@ -17,7 +17,7 @@ public class DriverGroupOfHeadquarters {
     private static void menu() {
         System.out.println("Driver clase DriverGroupHeadquarter"
                 + "\n 0.Salir"
-                + "\n 1.GroupOfHeadquarters(int): void"
+                + "\n 1.State(int): void"
                 + "\n 2.MakeAssignment(int,int): void"
                 + "\n 3.addHQ(): void"
                 + "\n 4.getHQs(): ArrayList<>"
@@ -29,14 +29,14 @@ public class DriverGroupOfHeadquarters {
         Scanner sc = new Scanner(System.in);
         String linea;
         String[] lsplited;
-        GroupOfHeadquarters hq = null;
+        State hq = null;
         while (sc.hasNext()) {
             try {
                 linea = sc.nextLine();
                 lsplited = linea.split(" ");
                 switch(Integer.parseInt(lsplited[0])) {
                     case 1: {
-                        hq = new GroupOfHeadquarters(Integer.parseInt(lsplited[1]));
+                        hq = new State(Integer.parseInt(lsplited[1]));
                         System.out.println("HelicopterFleet created");
                         break;
                     }
