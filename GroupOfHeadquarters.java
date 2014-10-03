@@ -12,8 +12,12 @@ import java.util.ListIterator;
  * @author Usuario
  */
 public class GroupOfHeadquarters {
-    public ArrayList<Headquarter> HQ;
-    
+    private ArrayList<Headquarter> HQ;
+
+    public GroupOfHeadquarters(ArrayList<Headquarter> hq) {
+        HQ = hq;
+    }
+
     public GroupOfHeadquarters(int n){
         HQ = new ArrayList<Headquarter> (n);
     }
@@ -34,7 +38,7 @@ public class GroupOfHeadquarters {
         return HQ;
     }
     
-     public  ArrayList<Integer> getHQHelicopters(int identHQ){
+    public  ArrayList<Integer> getHQHelicopters(int identHQ){
           for ( Headquarter  i: HQ){
             if (i.getident() ==identHQ){
                 return i.getHelicopters();                

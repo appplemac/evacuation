@@ -6,21 +6,25 @@
 
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Usuario
  */
 public class Helicopter {
+    private static int cargo = 15;
+
     private int ident;
-    private int ActualCapacity;
+    private int capacity;
     private int coordx;
     private int coordy;
     private boolean full;
-    private int cargo = 15;
+    private ArrayList<Group> itinerary;
     
     public Helicopter(int id, int x, int y){
         ident = id;
-        ActualCapacity = 0;
+        capacity = 0;
         full = false;
         coordx = x;
         coordy = y;
@@ -30,26 +34,16 @@ public class Helicopter {
         return ident;
     }
     
-    public int getActualCapacity(){
-        return ActualCapacity;
+    public int getCapacity(){
+        return capacity;
     }
     
     public boolean Full(){
         return full;
     }
     
-    public boolean itFills(int num){
-        return num + ActualCapacity > cargo;
-    }
-    
-    public void addPeople(int numpeople) throws Exception{
-        if (ActualCapacity+numpeople > cargo){
-            throw new Exception("El numero de personas supera la capacidad.");
-        }
-        else {
-            ActualCapacity += numpeople;
-            if (ActualCapacity == 15) full = true;
-        }
+    public boolean itFits(int num){
+        return num + capacity > cargo;
     }
     
     public int getCargo(){
@@ -60,5 +54,13 @@ public class Helicopter {
         String pos;
         pos = Integer.toString(coordx)+' '+Integer.toString(coordy);
         return pos;
+    }
+
+    public void addToItinerary(Group group) throws Exception {
+        if (!itFits(group.getNumPeople())) {
+            throw new Exception("Too many people");
+        }
+        itinerary.add(group);
+        capacity -= group.getNumPeople();
     }
 }

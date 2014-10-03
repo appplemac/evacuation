@@ -45,7 +45,7 @@ public class HelicopterFleet {
     public int getActualCapacityHeli(int identH){
         for (Helicopter h : Helis){
             if (h.getIdent() == identH){
-                return h.getActualCapacity();
+                return h.getCapacity();
             }
         }
         return -1;
