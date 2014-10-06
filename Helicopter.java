@@ -20,7 +20,7 @@ public class Helicopter {
     private int coordx;
     private int coordy;
     private boolean full;
-    private ArrayList<Group> itinerary;
+    private ArrayList<Group> itinerary = new ArrayList<Group>();
     
     public Helicopter(int id, int x, int y){
         ident = id;
@@ -58,6 +58,9 @@ public class Helicopter {
 
     public void addToItinerary(Group group) throws Exception {
         itinerary.add(group);
-        capacity -= group.getNumPeople();
+    }
+
+    public int getItineraryLength() {
+        return itinerary.size();
     }
 }

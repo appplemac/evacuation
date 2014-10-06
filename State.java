@@ -24,11 +24,11 @@ public class State {
     }
         
     public void MakeAssignment (int identHel, int identHQ){
-        for ( Headquarter  i: hqs){
+/*        for ( Headquarter  i: hqs){
             if (i.getident() ==identHQ){
-                i.getHelicopters().add(identHel);                
+                i.getHelicopters().add(identHel);
             }
-        }
+        }*/
     }
     
     public void addHQ(Headquarter hq){

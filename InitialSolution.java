@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by alexey on 02/10/14.
  */
 public class InitialSolution {
-    public State getInitialSolution(
+    public static State getInitialSolution(
             ArrayList<Headquarter> hqs, ArrayList<Group> groups
     ) throws Exception {
         State state = new State(hqs);
