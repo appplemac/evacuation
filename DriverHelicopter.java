@@ -21,7 +21,6 @@ public class DriverHelicopter {
                 + "\n 3.getActualCapacity(): int"
                 + "\n 4.getCargo(): int"
                 + "\n 5.itFills(int): boolean"
-                + "\n 6.addPeople(int): void"
                 + "\n 7.Full(): boolean"
                 + "\n 8.getcoordinates(): String");
     }
@@ -48,7 +47,7 @@ public class DriverHelicopter {
                         break;
                     }
                     case 3: {
-                        int res = h.getActualCapacity();
+                        int res = h.getCapacity();
                         System.out.println(Integer.toString(res));
                         break;
                     }
@@ -58,17 +57,12 @@ public class DriverHelicopter {
                         break;
                     }
                     case 5:{
-                        if (h.itFills(Integer.parseInt(lsplited[1]))){
+                        if (h.itFits(Integer.parseInt(lsplited[1]))){
                             System.out.println("Cargo excess");
                         }
                         else {
                             System.out.println("It can be filled");
                         }
-                        break;
-                    }
-                    case 6:{
-                        h.addPeople(Integer.parseInt(lsplited[1]));
-                        System.out.println("People added");
                         break;
                     }
                     case 7: {

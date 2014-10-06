@@ -20,8 +20,7 @@ public class DriverGroupOfHeadquarters {
                 + "\n 1.State(int): void"
                 + "\n 2.MakeAssignment(int,int): void"
                 + "\n 3.addHQ(): void"
-                + "\n 4.getHQs(): ArrayList<>"
-                + "\n 5.getHQHelicopters(): ArrayList<>");
+                + "\n 4.getHQs(): ArrayList<>");
     }
     
     public static void main(String [] args) {        
@@ -55,13 +54,6 @@ public class DriverGroupOfHeadquarters {
                         ArrayList<Headquarter> res = hq.getHQs();
                         for (Headquarter headq : res){
                             System.out.println(Integer.toString(headq.getident()));
-                        }
-                        break;
-                    }
-                    case 5:{
-                        ArrayList<Integer> res = hq.getHQHelicopters(Integer.parseInt(lsplited[1]));
-                        for (Integer headq : res){
-                            System.out.println(Integer.toString(headq));
                         }
                         break;
                     }

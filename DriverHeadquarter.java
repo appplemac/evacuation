@@ -46,9 +46,9 @@ public class DriverHeadquarter {
                         break;
                     }
                     case 3: {
-                        ArrayList<Integer> res = hq.getHelicopters();
-                        for (Integer hel : res){
-                            System.out.println(Integer.toString(hel));
+                        ArrayList<Helicopter> res = hq.getHelicopters();
+                        for (Helicopter hel : res){
+                            System.out.println(hel);
                         }
                         break;
                     }
@@ -58,7 +58,8 @@ public class DriverHeadquarter {
                         break;
                     }
                     case 5: {
-                        hq.addHeli(Integer.parseInt(lsplited[1]));
+                        Helicopter heli = new Helicopter(Integer.parseInt(lsplited[1]), 0, 0);
+                        hq.addHeli(heli);
                         System.out.println("added helicopter identifier");
                         break;
                     }
