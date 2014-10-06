@@ -32,6 +32,10 @@ public class Headquarter {
         return helicopters;
     }
 
+    public Helicopter getHelicopter(int index) {
+        return helicopters.get(index);
+    }
+
     public int getNumHelicopters() {
         return helicopters.size();
     }
