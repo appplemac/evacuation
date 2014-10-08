@@ -14,13 +14,16 @@ import java.util.ArrayList;
 public class State {
     private ArrayList<Headquarter> hqs;
     private ArrayList<Group> groups;
+    static int numHeli;
 
-    public State(ArrayList<Headquarter> hq) {
+    public State(ArrayList<Headquarter> hq, int numHeliPerHQ) {
         hqs = hq;
+        numHeli = numHeliPerHQ;
     }
 
-    public State(int n){
+    public State(int n, int numHeliPerHQ){
         hqs = new ArrayList<Headquarter> (n);
+        numHeli = numHeliPerHQ;
     }
         
     public void MakeAssignment (int identHel, int identHQ){
@@ -45,5 +48,22 @@ public class State {
             count += hq.getNumHelicopters();
         }
         return count;
+    }
+
+    void swapItineraries(int idHeli1, int idHeli2, int indexGroup1, int indexGroup2){
+        Group aux;
+        int indexHQ = idHeli1 / numHeli;
+        int indexHeli = idHeli1 % numHeli;
+        Headquarter auxHQ = hqs.get(indexHQ);
+        Helicopter auxHeli = auxHQ.getHelicopter(indexHeli);
+        aux = auxHeli.getGroup(indexGroup1);
+        auxHeli.getItinerary().remove(indexGroup1);
+        indexHQ = idHeli2 / numHeli;
+        indexHeli = idHeli2 % numHeli;
+        auxHQ = hqs.get(indexHQ);
+        Helicopter auxHeli2 = auxHQ.getHelicopter(indexHeli);
+        auxHeli.getItinerary().add(auxHeli2.getItinerary().get(indexGroup2));
+        auxHeli2.getItinerary().remove(indexGroup2);
+        auxHeli2.getItinerary().add(aux);
     }
 }

@@ -56,8 +56,16 @@ public class Helicopter {
         return pos;
     }
 
-    public void addToItinerary(Group group) throws Exception {
+    public void addToItinerary(Group group) /*throws Exception*/ {
         itinerary.add(group);
+    }
+
+    public ArrayList<Group> getItinerary(){
+        return itinerary;
+    }
+
+    public Group getGroup(int indexGroup){
+        return itinerary.get(indexGroup);
     }
 
     public int getItineraryLength() {
