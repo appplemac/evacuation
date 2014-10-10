@@ -66,8 +66,13 @@ public class Helicopter {
         return itinerary;
     }
 
-    public int getGroup(int indexGroup){
-        return itinerary.get(indexGroup).getFirst();
+    public void joinGroups() {
+
+    }
+
+    public Pair<Integer,Integer> getGroup(int indexGroup){
+        //Excuuuuuuuuuuseeee meeeeeeee
+        return itinerary.get(indexGroup);
     }
 
     public int getItineraryLength() {
