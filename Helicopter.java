@@ -6,6 +6,7 @@
 
 package com.company;
 
+import javax.jnlp.IntegrationService;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,7 @@ public class Helicopter {
     private int coordx;
     private int coordy;
     private boolean full;
-    private ArrayList<Group> itinerary = new ArrayList<Group>();
+    private ArrayList<Pair<Integer,Integer> > itinerary = new ArrayList<Pair<Integer,Integer> >();
     
     public Helicopter(int id, int x, int y){
         ident = id;
@@ -56,16 +57,17 @@ public class Helicopter {
         return pos;
     }
 
-    public void addToItinerary(Group group) /*throws Exception*/ {
-        itinerary.add(group);
+    public void addToItinerary(int idGroup) /*throws Exception*/ {
+        Pair<Integer,Integer> p = new Pair<Integer,Integer>(idGroup, 0);
+        itinerary.add(p);
     }
 
-    public ArrayList<Group> getItinerary(){
+    public ArrayList<Pair<Integer,Integer> > getItinerary(){
         return itinerary;
     }
 
-    public Group getGroup(int indexGroup){
-        return itinerary.get(indexGroup);
+    public int getGroup(int indexGroup){
+        return itinerary.get(indexGroup).getFirst();
     }
 
     public int getItineraryLength() {
