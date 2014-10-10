@@ -66,7 +66,8 @@ public class Helicopter {
         return itinerary;
     }
 
-    public void joinGroups() {
+    //Joins group
+    public void joinGroups(int indexGroup1, int indexGroup2) {
 
     }
 
