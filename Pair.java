@@ -23,4 +23,8 @@ public class Pair {
     public Object getSecond(){
         return second;
     }
+
+    public void setSecond(Object b){
+         second = b;
+    }
 }
