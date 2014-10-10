@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 public class InitialSolution {
     public static State getInitialSolution(
-            ArrayList<Headquarter> hqs, ArrayList<Group> groups
+            ArrayList<Headquarter> hqs, ArrayList<Group> groups, int numHelicoptersPerHQ
     ) throws Exception {
-        State state = new State(hqs);
+        State state = new State(hqs, numHelicoptersPerHQ);
         int numHelicopters = state.getNumHelicopters();
         int numGroups = groups.size();
         int groupsPerHelicopter = numGroups / numHelicopters;
@@ -19,7 +19,7 @@ public class InitialSolution {
                 for (int i = lastAssignedGroup;
                          i < lastAssignedGroup + groupsPerHelicopter &&
                          i < numGroups; ++i) {
-                    heli.addToItinerary(groups.get(i));
+                    heli.addToItinerary(i);
                 }
                 lastAssignedGroup += groupsPerHelicopter;
             }
@@ -28,7 +28,7 @@ public class InitialSolution {
             Headquarter hq = hqs.get(hqs.size() - 1);
             Helicopter heli = hq.getHelicopter(hq.getNumHelicopters() - 1);
             for (int i = lastAssignedGroup; i < numGroups; ++i) {
-                heli.addToItinerary(groups.get(i));
+                heli.addToItinerary(i);
             }
         }
         return state;

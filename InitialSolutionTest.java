@@ -62,12 +62,12 @@ public class InitialSolutionTest {
         State initialSolution;
         try {
             initialSolution =
-                    InitialSolution.getInitialSolution(hqlist, grplist);
+                    InitialSolution.getInitialSolution(hqlist, grplist, 1);
         } catch (Exception e) {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
             e.printStackTrace();
-            initialSolution = new State(new ArrayList<Headquarter>(0));
+            initialSolution = new State(new ArrayList<Headquarter>(), 0);
         }
 
         assertEquals(initialSolution.getHQs().
@@ -87,12 +87,12 @@ public class InitialSolutionTest {
         State initialSolution;
         try {
             initialSolution =
-                    InitialSolution.getInitialSolution(hqlist, grplist);
+                    InitialSolution.getInitialSolution(hqlist, grplist, 3);
         } catch (Exception e) {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
             e.printStackTrace();
-            initialSolution = new State(new ArrayList<Headquarter>());
+            initialSolution = new State(new ArrayList<Headquarter>(), 0);
         }
 
         assertEquals(initialSolution.getHQs().
@@ -116,12 +116,12 @@ public class InitialSolutionTest {
         State initialSolution;
         try {
             initialSolution =
-                    InitialSolution.getInitialSolution(hqlist, grplist);
+                    InitialSolution.getInitialSolution(hqlist, grplist, 3);
         } catch (Exception e) {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
             e.printStackTrace();
-            initialSolution = new State(new ArrayList<Headquarter>());
+            initialSolution = new State(new ArrayList<Headquarter>(), 0);
         }
 
         assertEquals(initialSolution.getHQs().
