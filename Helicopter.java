@@ -25,7 +25,7 @@ public class Helicopter {
     
     public Helicopter(int id, int x, int y){
         ident = id;
-        capacity = 0;
+        capacity = cargo;
         full = false;
         coordx = x;
         coordy = y;
@@ -39,12 +39,12 @@ public class Helicopter {
         return capacity;
     }
     
-    public boolean Full(){
+    public boolean full(){
         return full;
     }
     
     public boolean itFits(int num){
-        return num + capacity > cargo;
+        return num + capacity >= cargo;
     }
     
     public int getCargo(){
@@ -66,13 +66,29 @@ public class Helicopter {
         return itinerary;
     }
 
-    //Joins group
     public void joinGroups(int indexGroup1, int indexGroup2) {
+        // Is there a way to check if we can actually
+        // join those groups, e.g. to see if their total size
+        // does not exceed the cargo capacity, etc?
 
+        // Remove the second group from the list and
+        // insert it back right after the first group
+        Pair<Integer, Integer> grp2 = itinerary.remove(indexGroup2);
+        // Indicate that the second group is joined with
+        // the previous one
+        grp2.setSecond(1);
+        itinerary.add(indexGroup1+1, grp2);
     }
 
-    public Pair<Integer,Integer> getGroup(int indexGroup){
-        //Excuuuuuuuuuuseeee meeeeeeee
+    public int getGroupId(int indexGroup){
+        return itinerary.get(indexGroup).getFirst();
+    }
+
+    public int getGroupStatus(int indexGroup){
+        return itinerary.get(indexGroup).getSecond();
+    }
+
+    public Pair<Integer, Integer> getGroup(int indexGroup) {
         return itinerary.get(indexGroup);
     }
 
