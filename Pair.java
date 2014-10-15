@@ -24,6 +24,10 @@ public class Pair<class1, class2> {
         return second;
     }
 
+    public void setFirst(class1 a){
+        first = a;
+    }
+
     public void setSecond(class2 b){
          second = b;
     }
