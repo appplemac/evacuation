@@ -1,5 +1,6 @@
-package com.company;
+package com.company.test;
 
+import com.company.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -133,6 +134,6 @@ public class InitialSolutionTest {
     }
 
     public static void main(String[] args) {
-        org.junit.runner.JUnitCore.main("com.company.InitialSolutionTest");
+        org.junit.runner.JUnitCore.main("com.company.test.InitialSolutionTest");
     }
 }

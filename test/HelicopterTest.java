@@ -1,5 +1,6 @@
-package com.company;
+package com.company.test;
 
+import com.company.Helicopter;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -58,6 +59,6 @@ public class HelicopterTest {
     }
 
     public static void main(String[] args) {
-        org.junit.runner.JUnitCore.main("com.company.HelicopterTest");
+        org.junit.runner.JUnitCore.main("com.company.test.HelicopterTest");
     }
 }

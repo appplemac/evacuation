@@ -1,5 +1,6 @@
-package com.company;
+package com.company.test;
 
+import com.company.Group;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -16,6 +17,6 @@ public class GroupTest {
     }
 
     public static void main(String[] args) {
-        org.junit.runner.JUnitCore.main("com.company.GroupTest");
+        org.junit.runner.JUnitCore.main("com.company.test.GroupTest");
     }
 }
