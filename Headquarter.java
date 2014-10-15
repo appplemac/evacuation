@@ -24,7 +24,7 @@ public class Headquarter {
         helicopters = new ArrayList<Helicopter>();
     }
     
-    public int getident(){
+    public int getIdent(){
         return HQident;
     }
     
