@@ -6,7 +6,7 @@
 
 package com.company;
 import java.util.ArrayList;
-
+import java.util.Random;
 /**
  *
  * @author Usuario
@@ -64,5 +64,30 @@ public class State {
         auxHQ = hqs.get(indexHQ);
         Helicopter auxHeli2 = auxHQ.getHelicopter(indexHeli);
         auxHeli2.getItinerary().add(indexDestino, aux);
+    }
+
+    public ArrayList<State> generateSuccessors (){
+        ArrayList<State> successors = new ArrayList<State>();
+        State orig = this;
+        State modif;
+        for (Headquarter hq : hqs){
+            for (Helicopter h : hq.getHelicopters()){
+                for(Headquarter hq2 : hqs){
+                    for(Helicopter h2 : hq2.getHelicopters()){
+                        if (h.getIdent() != h2.getIdent()){
+                            modif = orig;
+                            Random rand = new Random();
+                            int randNum = rand.nextInt();
+                            int index1 = (hq.getHelicopters().size())% randNum;
+                            randNum = rand.nextInt();
+                            int index2 = (hq2.getHelicopters().size())% randNum;
+                            modif.moveGroup(h.getIdent(), h2.getIdent(), index1, index2);
+                            successors.add(modif);
+                        }
+                    }
+                }
+            }
+        }
+        return successors;
     }
 }
