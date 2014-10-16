@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.*;
  */
 public class HeadquarterTest {
     public Headquarter genericHQ() {
-        return new Headquarter(1, 0, 0);
+        return new Headquarter(1);
     }
 
     @Test

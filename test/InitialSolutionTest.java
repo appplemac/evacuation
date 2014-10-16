@@ -18,10 +18,10 @@ public class InitialSolutionTest {
         for (int i = 0; i < size; ++i) {
             Headquarter hq;
             if (i % 2 == 0) {
-                hq = new Headquarter(i, 0, random.nextInt(100));
+                hq = new Headquarter(i);
             }
             else {
-                hq = new Headquarter(i, random.nextInt(100), 0);
+                hq = new Headquarter(i);
             }
 
             hqlist.add(hq);
