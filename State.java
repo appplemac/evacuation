@@ -65,21 +65,4 @@ public class State {
         Helicopter auxHeli2 = auxHQ.getHelicopter(indexHeli);
         auxHeli2.getItinerary().add(indexDestino, aux);
     }
-
-    public void swapItineraries(int idHeli1, int idHeli2, int indexGroup1, int indexGroup2){
-        Pair<Integer,Integer> aux;
-        int indexHQ = idHeli1 / numHeli;
-        int indexHeli = idHeli1 % numHeli;
-        Headquarter auxHQ = hqs.get(indexHQ);
-        Helicopter auxHeli = auxHQ.getHelicopter(indexHeli);
-        aux = auxHeli.getGroup(indexGroup1);
-        auxHeli.getItinerary().remove(indexGroup1);
-        indexHQ = idHeli2 / numHeli;
-        indexHeli = idHeli2 % numHeli;
-        auxHQ = hqs.get(indexHQ);
-        Helicopter auxHeli2 = auxHQ.getHelicopter(indexHeli);
-        auxHeli.getItinerary().add(auxHeli2.getItinerary().get(indexGroup2));
-        auxHeli2.getItinerary().remove(indexGroup2);
-        auxHeli2.getItinerary().add(aux);
-    }
 }
