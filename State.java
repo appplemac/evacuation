@@ -16,8 +16,9 @@ public class State {
     private ArrayList<Group> groups;
     static int numHeli;
 
-    public State(ArrayList<Headquarter> hq, int numHeliPerHQ) {
+    public State(ArrayList<Headquarter> hq, int numHeliPerHQ, ArrayList<Group> group) {
         hqs = hq;
+        groups = group;
         numHeli = numHeliPerHQ;
     }
 

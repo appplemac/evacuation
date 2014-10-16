@@ -10,15 +10,13 @@ import static org.hamcrest.CoreMatchers.*;
  */
 public class HelicopterTest {
     public Helicopter genericHelicopter() {
-        return new Helicopter(1, 0, 0);
+        return new Helicopter(1);
     }
 
     @Test
     public void basicGetters() {
         int id = 1;
-        int x = 0;
-        int y = 0;
-        Helicopter heli = new Helicopter(id, x, y);
+        Helicopter heli = new Helicopter(id);
         assertThat("identifier",
                 heli.getIdent(), equalTo(id));
         assertThat("capacity",

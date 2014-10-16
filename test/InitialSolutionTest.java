@@ -18,10 +18,10 @@ public class InitialSolutionTest {
         for (int i = 0; i < size; ++i) {
             Headquarter hq;
             if (i % 2 == 0) {
-                hq = new Headquarter(i);
+                hq = new Headquarter(i, 0, random.nextInt(100));
             }
             else {
-                hq = new Headquarter(i);
+                hq = new Headquarter(i, random.nextInt(100), 0);
             }
 
             hqlist.add(hq);
@@ -44,7 +44,7 @@ public class InitialSolutionTest {
 
     @Test
     public void simpleSolution() {
-        Helicopter heli = new Helicopter(1, 0, 0);
+        Helicopter heli = new Helicopter(1);
         // add the helicopter to an hq of the hq list
         ArrayList<Headquarter> hqlist = generateHqList(1);
         hqlist.get(0).addHeli(heli);
@@ -68,7 +68,8 @@ public class InitialSolutionTest {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
             e.printStackTrace();
-            initialSolution = new State(new ArrayList<Headquarter>(), 0);
+            initialSolution = new State(new ArrayList<Headquarter>(), 0,
+                    new ArrayList<Group>());
         }
 
         assertEquals(initialSolution.getHQs().
@@ -80,7 +81,7 @@ public class InitialSolutionTest {
         ArrayList<Headquarter> hqlist = generateHqList(1);
         Headquarter hq = hqlist.get(0);
         for (int i = 0; i < 3; ++i) {
-            hq.addHeli(new Helicopter(i, 0, 0));
+            hq.addHeli(new Helicopter(i));
         }
 
         ArrayList<Group> grplist = generateGroupList(9);
@@ -93,7 +94,8 @@ public class InitialSolutionTest {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
             e.printStackTrace();
-            initialSolution = new State(new ArrayList<Headquarter>(), 0);
+            initialSolution = new State(new ArrayList<Headquarter>(), 0,
+                    new ArrayList<Group>());
         }
 
         assertEquals(initialSolution.getHQs().
@@ -109,7 +111,7 @@ public class InitialSolutionTest {
         ArrayList<Headquarter> hqlist = generateHqList(1);
         Headquarter hq = hqlist.get(0);
         for (int i = 0; i < 3; ++i) {
-            hq.addHeli(new Helicopter(i, 0, 0));
+            hq.addHeli(new Helicopter(i));
         }
 
         ArrayList<Group> grplist = generateGroupList(10);
@@ -122,7 +124,8 @@ public class InitialSolutionTest {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
             e.printStackTrace();
-            initialSolution = new State(new ArrayList<Headquarter>(), 0);
+            initialSolution = new State(new ArrayList<Headquarter>(), 0,
+                    new ArrayList<Group>());
         }
 
         assertEquals(initialSolution.getHQs().
