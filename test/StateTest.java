@@ -22,6 +22,11 @@ public class StateTest {
     int hqX = 0;
     int hqY = 0;
 
+    // defaults
+    int numHelisPerHq = 2;
+    int numHqs = 5;
+    int numGroups = 10;
+
     public Helicopter heliFactory() {
         Helicopter heli = new Helicopter(heliCount);
         ++heliCount;
@@ -76,9 +81,6 @@ public class StateTest {
 
     @Test
     public void moveGroup() {
-        int numHelisPerHq = 2;
-        int numHqs = 5;
-        int numGroups = 10;
         State state = stateFactory(numHqs, numHelisPerHq, numGroups);
 
         Helicopter h1 = state.getHQs().get(1).getHelicopter(0);
@@ -101,5 +103,9 @@ public class StateTest {
                 h2.getGroupId(0),
                 equalTo(1)
                 );
+        assertThat("size of itinerary of h1 has changed",
+                h1.getItineraryLength(), equalTo(3));
+        assertThat("size of itinerary of h2 has changed",
+                h2.getItineraryLength(), equalTo(5));
     }
 }
