@@ -94,12 +94,12 @@ public class StateTest {
         h2.addToItinerary(7);
         h2.addToItinerary(8);
 
-        int groupIndex1 = h1.getGroupId(2);
+        int groupIndex1 = 0;
         state.moveGroup(h1.getIdent(), h2.getIdent(),
                 groupIndex1, 0);
         assertThat("groups get moved",
                 h2.getGroupId(0),
-                equalTo(groupIndex1)
+                equalTo(1)
                 );
     }
 }
