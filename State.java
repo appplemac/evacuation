@@ -93,15 +93,23 @@ public class State {
                             successors.add(modif);
                         } else {
                             modif = orig;
-                            int index1, index2;
-                            ArrayList<Integer> candidates = new ArrayList<Integer>();
-                            for (Pair<Integer,Integer> g : h.getItinerary()) {
-                                 // Get valid candidates for join -> people g1 + people g2 <= heli capacity
+                            Boolean found = false;
+                            for (int i = 0; i < h.getItinerary().size(); ++i) {
+                                for (int j = i+1; j < h.getItinerary().size(); ++j) {
+                                    if (i < h.getItinerary().size() - 1 && j < h.getItinerary().size())  {
+                                        if (h.getItinerary().get(i).getSecond() == 0 && h.getItinerary().get(i+1).getSecond() == 0 &&
+                                        h.getItinerary().get(j).getSecond() == 0 && h.getItinerary().get(j+1).getSecond() == 0 &&
+                                        groups.get(h.getItinerary().get(i).getFirst()).getNumPeople() +
+                                        groups.get(h.getItinerary().get(j).getFirst()).getNumPeople() <= h.getCapacity()) {
+                                            modif.joinRescues(h.getIdent(),i,j);
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (found) break;
                             }
-                            index1 = 0; //Just so IDEA will shut up
-                            index2 = 1; //
-                            modif.joinRescues(h.getIdent(), index1, index2);
-                            successors.add(modif);
+                            if (found) successors.add(modif);
                         }
                     }
                 }
