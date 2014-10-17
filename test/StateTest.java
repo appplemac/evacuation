@@ -49,4 +49,17 @@ public class StateTest {
         assertThat("size of itinerary of h2 has changed",
                 h2.getItineraryLength(), equalTo(5));
     }
+
+    @Test
+    public void joinRescues() {
+        int numGroups = 10;
+        State state = helpers.stateFactory(1, 1, numGroups);
+
+        Helicopter heli = state.getHQs().get(0).getHelicopter(0);
+        for (int i = 0; i < numGroups; ++i) heli.addToItinerary(i);
+
+        state.joinRescues(0, 0, 1);
+        assertThat("group at the index 1 us joined to the rescue of group at the index 0",
+                heli.getGroupStatus(1), equalTo(1));
+    }
 }

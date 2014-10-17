@@ -23,25 +23,16 @@ public class State {
         numHeli = numHeliPerHQ;
     }
 
-    public State(int n, int numHeliPerHQ){
-        hqs = new ArrayList<Headquarter> (n);
-        numHeli = numHeliPerHQ;
-    }
-        
-    public void MakeAssignment (int identHel, int identHQ){
-/*        for ( Headquarter  i: hqs){
-            if (i.getident() ==identHQ){
-                i.getHelicopters().add(identHel);
-            }
-        }*/
-    }
-    
     public void addHQ(Headquarter hq){
         hqs.add(hq);
     }
     
     public ArrayList<Headquarter> getHQs(){
         return hqs;
+    }
+
+    public ArrayList<Group> getGroups() {
+        return groups;
     }
 
     public int getNumHelicopters() {
@@ -121,13 +112,22 @@ public class State {
     public boolean isGoal(){
          return numits == 100;
     }
-    public int calculateHeuristic(){
-        int value=0;
-        for (Headquarter hq : hqs){
-             for (Helicopter h: hq.getHelicopters()){
 
-             }
+    public int calculateHeuristic(){
+        int itineraryLengthSum = 0;
+        int maxItineraryLength = 0;
+        int numHelis = 0;
+        for (Headquarter hq : hqs){
+            for (Helicopter h: hq.getHelicopters()){
+                int length = h.getItineraryLength();
+                if (length > maxItineraryLength) maxItineraryLength = length;
+                itineraryLengthSum += length;
+                ++numHelis;
+            }
         }
-        return value;
+
+        int meanItineraryLength = itineraryLengthSum / numHelis;
+        int heuristic = meanItineraryLength + maxItineraryLength^2;
+        return heuristic;
     }
 }
