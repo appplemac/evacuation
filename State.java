@@ -15,6 +15,7 @@ public class State {
     private ArrayList<Headquarter> hqs;
     private ArrayList<Group> groups;
     static int numHeli;
+    int numits=0;
 
     public State(ArrayList<Headquarter> hq, int numHeliPerHQ, ArrayList<Group> group) {
         hqs = hq;
@@ -107,5 +108,18 @@ public class State {
             }
         }
         return successors;
+    }
+
+    public boolean isGoal(){
+         return numits == 100;
+    }
+    public int calculateHeuristic(){
+        int value=0;
+        for (Headquarter hq : hqs){
+             for (Helicopter h: hq.getHelicopters()){
+
+             }
+        }
+        return value;
     }
 }
