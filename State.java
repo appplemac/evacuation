@@ -66,6 +66,13 @@ public class State {
         auxHeli2.getItinerary().add(indexDestino, aux);
     }
 
+    public void joinRescues(int idHeli, int index1, int index2) {
+        int indexHQ = idHeli / numHeli;
+        int indexHeli = idHeli % numHeli;
+        Headquarter auxHQ = hqs.get(indexHQ);
+        auxHQ.getHelicopter(indexHeli).joinGroups(index1, index2);
+    }
+
     public ArrayList<State> generateSuccessors (){
         ArrayList<State> successors = new ArrayList<State>();
         State orig = this;
@@ -82,6 +89,17 @@ public class State {
                             randNum = rand.nextInt();
                             int index2 = (hq2.getHelicopters().size())% randNum;
                             modif.moveGroup(h.getIdent(), h2.getIdent(), index1, index2);
+                            successors.add(modif);
+                        } else {
+                            modif = orig;
+                            int index1, index2;
+                            ArrayList<Integer> candidates = new ArrayList<Integer>();
+                            for (Pair<Integer,Integer> g : h.getItinerary()) {
+                                 // Get valid candidates for join -> people g1 + people g2 <= heli capacity
+                            }
+                            index1 = 0; //Just so IDEA will shut up
+                            index2 = 1; //
+                            modif.joinRescues(h.getIdent(), index1, index2);
                             successors.add(modif);
                         }
                     }
