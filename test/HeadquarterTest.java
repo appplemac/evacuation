@@ -11,14 +11,12 @@ import static org.hamcrest.CoreMatchers.*;
  * Created by alexey on 15/10/14.
  */
 public class HeadquarterTest {
-    public Headquarter genericHQ() {
-        return new Headquarter(1, 0, 0);
-    }
+    TestHelpers helpers = new TestHelpers();
 
     @Test
     public void basicGetters() {
-        Headquarter hq = genericHQ();
+        Headquarter hq = helpers.hqFactory(1);
         assertThat("id",
-                hq.getIdent(), equalTo(1));
+                hq.getIdent(), equalTo(0));
     }
 }

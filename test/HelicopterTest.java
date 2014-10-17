@@ -9,9 +9,7 @@ import static org.hamcrest.CoreMatchers.*;
  * Created by alexey on 15/10/14.
  */
 public class HelicopterTest {
-    public Helicopter genericHelicopter() {
-        return new Helicopter(1);
-    }
+    TestHelpers helpers = new TestHelpers();
 
     @Test
     public void basicGetters() {
@@ -29,7 +27,7 @@ public class HelicopterTest {
 
     @Test
     public void fitsUpTo15People() {
-        Helicopter heli = genericHelicopter();
+        Helicopter heli = helpers.heliFactory();
         assertThat("normal case",
                 heli.itFits(1), equalTo(true));
         assertThat("zero",
@@ -44,7 +42,7 @@ public class HelicopterTest {
 
     @Test
     public void joinsGroups() {
-        Helicopter heli = genericHelicopter();
+        Helicopter heli = helpers.heliFactory();
         heli.addToItinerary(1);
         heli.addToItinerary(2);
         heli.addToItinerary(3);
