@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Helicopter {
     private static int cargo = 15;
-
+    private int time;
     private int ident;
     private int capacity;
     private boolean full;
@@ -29,6 +29,12 @@ public class Helicopter {
     public int getIdent(){
         return ident;
     }
+
+    /*
+    public int getTravelTime() {
+        return time;
+    }
+    */
     
     public int getCapacity(){
         return capacity;
