@@ -6,7 +6,10 @@
 
 package com.company;
 
-import java.util.ArrayList;
+import java.lang.*;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+import java.util.*;
 
 /**
  *
@@ -30,11 +33,69 @@ public class Helicopter {
         return ident;
     }
 
-    /*
-    public int getTravelTime() {
-        return time;
+    
+    public int getTravelTime(State a) {
+        int aux = 0;
+        Helicopter h = this;
+        int indexHQ = ident/a.getnumHeli();
+        Headquarter hq = a.getHQs().get(indexHQ);
+        String coords = hq.getcoordHQ();
+        Pair<Integer,Integer> pairCoords = coordsToPair(coords);
+        int coordxHQ = pairCoords.getFirst();
+        int coordyHQ = pairCoords.getSecond();
+        for (int i = 0; i < itinerary.size(); ++i){
+            Pair<Integer,Integer> p;
+            p = itinerary.get(i);
+            int id = h.getGroupId(p.getFirst());
+            Group g = a.getGroups().get(id);
+            Double dist = 0.0;
+            String c = g.getcoordG();
+            Pair<Integer,Integer> coordsHeli = coordsToPair(c);
+            int coordxHeli = coordsHeli.getFirst();
+            int coordyHeli = coordsHeli.getSecond();
+            int people = g.getNumPeople();
+            if (g.getPriority() == 2) {
+                people = people * 2;
+            }
+            if (p.getSecond() == 0){
+                Double power1= pow((coordxHQ-coordxHeli),2);
+                Double power2= pow((coordyHQ - coordyHeli),2);
+                Double Euclidean = sqrt( power1+ power2);
+                dist = dist + (Euclidean / 1.667)+20;
+            }
+            else {
+                int id2 = h.getGroupId(itinerary.get(i+1).getFirst());
+                Group g2 = a.getGroups().get(id2);
+                String nextc = g2.getcoordG();
+                Pair<Integer,Integer> coordsHeliNext = coordsToPair(nextc);
+                int coordxHeliNext = coordsHeli.getFirst();
+                int coordyHeliNext = coordsHeli.getSecond();
+                Double power1= pow((coordxHeli - coordxHeliNext),2);
+                Double power2= pow((coordyHeli - coordyHeliNext),2);
+                Double Euclidean = sqrt( power1+ power2);
+                dist = dist + (Euclidean / 1.667);
+            }
+            aux = people + dist.intValue();
+        }
+        return aux;
     }
-    */
+    
+    public Pair<Integer,Integer> coordsToPair(String s){
+        Pair<Integer,Integer> coords = new Pair<Integer,Integer>(0,0);
+                char[] Arrayc = s.toCharArray();
+        String auxString = ""; 
+        for (char auxchar : Arrayc){
+            if (auxchar != ' '){
+                auxString = auxString+auxchar;
+            }
+            else if (auxchar == ' '){
+                coords.setFirst(Integer.parseInt(auxString));
+                auxString = "";
+            }
+        }
+        coords.setSecond(Integer.parseInt(auxString));
+        return coords;
+    }
     
     public int getCapacity(){
         return capacity;
