@@ -56,6 +56,47 @@ public class State {
         auxHQ = hqs.get(indexHQ);
         Helicopter auxHeli2 = auxHQ.getHelicopter(indexHeli);
         auxHeli2.getItinerary().add(indexDestino, aux);
+        
+        ArrayList< Pair<Integer,Integer> > itinerary1 = auxHeli.getItinerary();
+        ArrayList< Pair<Integer,Integer> > itinerary2 = auxHeli.getItinerary();
+        int sumcargo = 0;
+        boolean first = true;
+        for(Pair<Integer,Integer> auxp1 : itinerary1){
+            Group g1 = groups.get(auxp1.getFirst());
+            int people = g1.getNumPeople();
+            if (people + sumcargo <= 15 && !first){
+                auxp1.setSecond(1);
+                sumcargo = sumcargo + people;
+            }
+            else {
+                auxp1.setSecond(0);
+                sumcargo = people;
+            }
+            if (first){
+                auxp1.setSecond(0);
+                sumcargo = sumcargo+people;
+                first = false;
+            }
+        }
+        sumcargo = 0;
+        first = true;
+        for(Pair<Integer,Integer> auxp2 : itinerary2){
+            Group g2 = groups.get(auxp2.getFirst());
+            int people = g2.getNumPeople();
+            if (people + sumcargo <= 15 && !first){
+                auxp2.setSecond(1);
+                sumcargo = sumcargo + people;
+            }
+            else {
+                auxp2.setSecond(0);
+                sumcargo = people;
+            }
+            if (first){
+                auxp2.setSecond(0);
+                sumcargo = sumcargo+people;
+                first = false;
+            }
+        }
     }
 
     public void joinRescues(int idHeli, int index1, int index2) {
