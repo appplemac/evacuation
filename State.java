@@ -7,6 +7,7 @@
 package com.company;
 import java.util.ArrayList;
 import java.util.Random;
+import aima.search.framework.Successor;
 /**
  *
  * @author Usuario
@@ -110,8 +111,8 @@ public class State {
         auxHQ.getHelicopter(indexHeli).joinGroups(index1, index2);
     }
 
-    public ArrayList<State> generateSuccessors (){
-        ArrayList<State> successors = new ArrayList<State>();
+    public ArrayList<Successor> generateSuccessors (){
+        ArrayList<Successor> successors = new ArrayList<Successor>();
         State orig = this;
         State modif;
         for (Headquarter hq : hqs){
@@ -126,7 +127,7 @@ public class State {
                             randNum = rand.nextInt();
                             int index2 = (hq2.getHelicopters().size())% randNum;
                             modif.moveGroup(h.getIdent(), h2.getIdent(), index1, index2);
-                            successors.add(modif);
+                            successors.add(new Successor("", modif));
                         } else {
                             modif = orig;
                             Boolean found = false;
@@ -145,7 +146,7 @@ public class State {
                                 }
                                 if (found) break;
                             }
-                            if (found) successors.add(modif);
+                            if (found) successors.add(new Successor("", modif));
                         }
                     }
                 }
