@@ -43,6 +43,10 @@ public class State {
         return count;
     }
 
+    public int getnumHeli(){
+        return numHeli;
+    }
+
     public void moveGroup(int idHeli1, int idHeli2, int indexOrigen, int indexDestino){
         Pair<Integer,Integer> aux;
         int indexHQ = idHeli1 / numHeli;
