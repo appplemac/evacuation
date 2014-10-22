@@ -127,10 +127,13 @@ public class State {
                             randNum = rand.nextInt();
                             int index2 = (hq2.getHelicopters().size())% randNum;
                             modif.moveGroup(h.getIdent(), h2.getIdent(), index1, index2);
-                            successors.add(new Successor("", modif));
+                            String explanation;
+                            explanation = "move group " + index1 + " of helicopter " + h.getIdent() + " to " + index2 + " of " + h2.getIdent();
+                            successors.add(new Successor(explanation, modif));
                         } else {
                             modif = orig;
                             Boolean found = false;
+                            String explanation = "Nothing joined";
                             for (int i = 0; i < h.getItinerary().size(); ++i) {
                                 for (int j = i+1; j < h.getItinerary().size(); ++j) {
                                     if (i < h.getItinerary().size() - 1 && j < h.getItinerary().size())  {
@@ -139,6 +142,8 @@ public class State {
                                         groups.get(h.getItinerary().get(i).getFirst()).getNumPeople() +
                                         groups.get(h.getItinerary().get(j).getFirst()).getNumPeople() <= h.getCapacity()) {
                                             modif.joinRescues(h.getIdent(),i,j);
+
+                                            explanation = "Joined groups " + i + " and " + j + " of helicopter " + h.getIdent();
                                             found = true;
                                             break;
                                         }
@@ -146,7 +151,7 @@ public class State {
                                 }
                                 if (found) break;
                             }
-                            if (found) successors.add(new Successor("", modif));
+                            if (found) successors.add(new Successor(explanation, modif));
                         }
                     }
                 }
