@@ -59,8 +59,6 @@ public class InitialSolutionTest {
 
     @Test
     public void solutionWithIncompleteDivision() {
-        ArrayList<Headquarter> hqlist = helpers.hqArrayFactory(1, 3);
-        ArrayList<Group> grplist = helpers.groupArrayFactory(10);
         State state = helpers.stateFactory(1, 3, 10);
 
         State initialSolution;
