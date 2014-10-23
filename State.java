@@ -119,13 +119,15 @@ public class State {
             for (Helicopter h : hq.getHelicopters()){
                 for(Headquarter hq2 : hqs){
                     for(Helicopter h2 : hq2.getHelicopters()){
-                        if (h.getIdent() != h2.getIdent()){
+                        if (h.getIdent() != h2.getIdent() && h.getItineraryLength()>1){
                             modif = orig;
                             Random rand = new Random();
                             int randNum = rand.nextInt();
-                            int index1 = (hq.getHelicopters().size())% randNum;
+                            randNum = Math.abs(randNum);
+                            int index1 = randNum % (h.getItineraryLength());
                             randNum = rand.nextInt();
-                            int index2 = (hq2.getHelicopters().size())% randNum;
+                            randNum = Math.abs(randNum);
+                            int index2 = randNum % (h2.getItineraryLength());
                             modif.moveGroup(h.getIdent(), h2.getIdent(), index1, index2);
                             String explanation;
                             explanation = "move group " + index1 + " of helicopter " + h.getIdent() + " to " + index2 + " of " + h2.getIdent();
