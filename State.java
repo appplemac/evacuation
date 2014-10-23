@@ -17,6 +17,7 @@ public class State {
     private ArrayList<Group> groups;
     static int numHeli;
     int numits=0;
+    int idHeliMaximo =0;
 
     public State(ArrayList<Headquarter> hq, int numHeliPerHQ, ArrayList<Group> group) {
         hqs = hq;
@@ -189,14 +190,16 @@ public class State {
 
     public int calculateHeuristic(){
         ArrayList<Integer> times = new ArrayList<Integer>();
+        int max = 0;
         for (Headquarter hq : hqs){
             for (Helicopter h: hq.getHelicopters()){
-                times.add(h.getTravelTime(this));
+                int time = h.getTravelTime(this);
+                times.add(time);
+                if (time > max){
+                    max = time;
+                    idHeliMaximo = h.getIdent();
+                }
             }
-        }
-        int max = 0;
-        for (Integer i : times){
-            if (i > max) max = i;
         }
         return max;
     }
