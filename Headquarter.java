@@ -24,6 +24,11 @@ public class Headquarter {
         helicopters = new ArrayList<Helicopter>();
     }
 
+    public Headquarter(int id, int x, int y, ArrayList<Helicopter> helis) {
+        this(id, x, y);
+        helicopters = helis;
+    }
+
     public int getIdent(){
         return HQident;
     }

@@ -7,9 +7,10 @@ import java.util.ArrayList;
  */
 public class InitialSolution {
     public static State getInitialSolution(
-            ArrayList<Headquarter> hqs, ArrayList<Group> groups, int numHelicoptersPerHQ
+            State state
     ) throws Exception {
-        State state = new State(hqs, numHelicoptersPerHQ, groups);
+        ArrayList<Group> groups = state.getGroups();
+        ArrayList<Headquarter> hqs = state.getHQs();
         int numHelicopters = state.getNumHelicopters();
         int numGroups = groups.size();
         int groupsPerHelicopter = numGroups / numHelicopters;

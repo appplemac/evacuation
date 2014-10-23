@@ -15,13 +15,12 @@ public class InitialSolutionTest {
 
     @Test
     public void simpleSolution() {
-        ArrayList<Headquarter> hqlist = helpers.hqArrayFactory(1, 1);
-        ArrayList<Group> grplist = helpers.groupArrayFactory(3);
+        State state = helpers.stateFactory(1, 1, 3);
 
         State initialSolution;
         try {
             initialSolution =
-                    InitialSolution.getInitialSolution(hqlist, grplist, 1);
+                    InitialSolution.getInitialSolution(state);
         } catch (Exception e) {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
@@ -36,13 +35,12 @@ public class InitialSolutionTest {
 
     @Test
     public void solutionWithFullDivision() {
-        ArrayList<Headquarter> hqlist = helpers.hqArrayFactory(1, 3);
-        ArrayList<Group> grplist = helpers.groupArrayFactory(9);
+        State state = helpers.stateFactory(1, 3, 9);
 
         State initialSolution;
         try {
             initialSolution =
-                    InitialSolution.getInitialSolution(hqlist, grplist, 3);
+                    InitialSolution.getInitialSolution(state);
         } catch (Exception e) {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
@@ -63,11 +61,12 @@ public class InitialSolutionTest {
     public void solutionWithIncompleteDivision() {
         ArrayList<Headquarter> hqlist = helpers.hqArrayFactory(1, 3);
         ArrayList<Group> grplist = helpers.groupArrayFactory(10);
+        State state = helpers.stateFactory(1, 3, 10);
 
         State initialSolution;
         try {
             initialSolution =
-                    InitialSolution.getInitialSolution(hqlist, grplist, 3);
+                    InitialSolution.getInitialSolution(state);
         } catch (Exception e) {
             System.out.println("Catched the exception: ");
             System.out.println(e.getMessage());
