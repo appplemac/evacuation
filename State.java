@@ -129,22 +129,24 @@ public class State {
                             randNum = Math.abs(randNum);
                             int index2 = randNum % (h2.getItineraryLength());
                             modif.moveGroup(h.getIdent(), h2.getIdent(), index1, index2);
+                            System.out.println("Moving shit around");
                             String explanation;
                             explanation = "move group " + index1 + " of helicopter " + h.getIdent() + " to " + index2 + " of " + h2.getIdent();
                             successors.add(new Successor(explanation, modif));
+                            System.out.println(""+successors.size());
                         } else {
                             modif = orig;
                             Boolean found = false;
                             String explanation = "Nothing joined";
                             for (int i = 0; i < h.getItinerary().size(); ++i) {
                                 for (int j = i+1; j < h.getItinerary().size(); ++j) {
-                                    if (i < h.getItinerary().size() - 1 && j < h.getItinerary().size())  {
+                                    if ((i < h.getItineraryLength() - 2) && (j < h.getItineraryLength() - 1))  {
                                         if (h.getItinerary().get(i).getSecond() == 0 && h.getItinerary().get(i+1).getSecond() == 0 &&
                                         h.getItinerary().get(j).getSecond() == 0 && h.getItinerary().get(j+1).getSecond() == 0 &&
                                         groups.get(h.getItinerary().get(i).getFirst()).getNumPeople() +
                                         groups.get(h.getItinerary().get(j).getFirst()).getNumPeople() <= h.getCapacity()) {
                                             modif.joinRescues(h.getIdent(),i,j);
-
+                                            System.out.println("Joining shit around");
                                             explanation = "Joined groups " + i + " and " + j + " of helicopter " + h.getIdent();
                                             found = true;
                                             break;
@@ -159,6 +161,7 @@ public class State {
                 }
             }
         }
+        ++numits;
         return successors;
     }
 
