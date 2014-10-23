@@ -63,13 +63,18 @@ public class State {
         auxHeli2.getItinerary().add(indexDestino, aux);
         
         ArrayList< Pair<Integer,Integer> > itinerary1 = auxHeli.getItinerary();
-        ArrayList< Pair<Integer,Integer> > itinerary2 = auxHeli.getItinerary();
+        ArrayList< Pair<Integer,Integer> > itinerary2 = auxHeli2.getItinerary();
         int sumcargo = 0;
         boolean first = true;
         for(Pair<Integer,Integer> auxp1 : itinerary1){
             Group g1 = groups.get(auxp1.getFirst());
             int people = g1.getNumPeople();
-            if (people + sumcargo <= 15 && !first){
+            if (first){
+                auxp1.setSecond(0);
+                sumcargo = sumcargo+people;
+                first = false;
+            }
+            else if (people + sumcargo <= 15 && !first){
                 auxp1.setSecond(1);
                 sumcargo = sumcargo + people;
             }
@@ -77,29 +82,24 @@ public class State {
                 auxp1.setSecond(0);
                 sumcargo = people;
             }
-            if (first){
-                auxp1.setSecond(0);
-                sumcargo = sumcargo+people;
-                first = false;
-            }
         }
         sumcargo = 0;
         first = true;
         for(Pair<Integer,Integer> auxp2 : itinerary2){
             Group g2 = groups.get(auxp2.getFirst());
             int people = g2.getNumPeople();
-            if (people + sumcargo <= 15 && !first){
+            if (first){
+                auxp2.setSecond(0);
+                sumcargo = sumcargo+people;
+                first = false;
+            }
+            else if (people + sumcargo <= 15 && !first){
                 auxp2.setSecond(1);
                 sumcargo = sumcargo + people;
             }
             else {
                 auxp2.setSecond(0);
                 sumcargo = people;
-            }
-            if (first){
-                auxp2.setSecond(0);
-                sumcargo = sumcargo+people;
-                first = false;
             }
         }
     }
@@ -168,7 +168,7 @@ public class State {
     public boolean isGoal(){
          return numits == 100;
     }
-
+              /*
     public int calculateHeuristic(){
         int itineraryLengthSum = 0;
         int maxItineraryLength = 0;
@@ -185,5 +185,19 @@ public class State {
         int meanItineraryLength = itineraryLengthSum / numHelis;
         int heuristic = meanItineraryLength + maxItineraryLength^2;
         return heuristic;
+    }       */
+
+    public int calculateHeuristic(){
+        ArrayList<Integer> times = new ArrayList<Integer>();
+        for (Headquarter hq : hqs){
+            for (Helicopter h: hq.getHelicopters()){
+                times.add(h.getTravelTime(this));
+            }
+        }
+        int max = 0;
+        for (Integer i : times){
+            if (i > max) max = i;
+        }
+        return max;
     }
 }

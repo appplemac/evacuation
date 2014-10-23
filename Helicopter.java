@@ -47,7 +47,7 @@ public class Helicopter {
         for (int i = 0; i < itinerary.size(); ++i){
             Pair<Integer,Integer> p;
             p = itinerary.get(i);
-            int id = h.getGroupId(p.getFirst());
+            int id = p.getFirst();
             Group g = a.getGroups().get(id);
             Double dist = 0.0;
             String c = g.getcoordG();
@@ -55,6 +55,7 @@ public class Helicopter {
             int coordxHeli = coordsHeli.getFirst();
             int coordyHeli = coordsHeli.getSecond();
             int people = g.getNumPeople();
+            System.out.println(""+ p.getSecond()+" id: "+this.ident);
             if (g.getPriority() == 2) {
                 people = people * 2;
             }
@@ -66,8 +67,15 @@ public class Helicopter {
                 lastStatus = 0;
             }
             else {
-                if (lastStatus == 0){
-                    int id2 = h.getGroupId(itinerary.get(i-1).getFirst());
+                if (i == itinerary.size()-1){
+                    Double power1= pow((coordxHQ-coordxHeli),2);
+                    Double power2= pow((coordyHQ - coordyHeli),2);
+                    Double Euclidean = sqrt( power1+ power2);
+                    dist = dist + (Euclidean / 1.667)+20;
+                    lastStatus = 0;
+                }
+                else if (lastStatus == 0){
+                    int id2 = h.itinerary.get(i-1).getFirst();
                     Group g2 = a.getGroups().get(id2);
                     String nextc = g2.getcoordG();
                     Pair<Integer,Integer> coordsHeliPrev = coordsToPair(nextc);
@@ -79,17 +87,19 @@ public class Helicopter {
                     dist = dist + (Euclidean / 1.667);
                     lastStatus = 1;
                 }
-                int id2 = h.getGroupId(itinerary.get(i+1).getFirst());
-                Group g2 = a.getGroups().get(id2);
-                String nextc = g2.getcoordG();
-                Pair<Integer,Integer> coordsHeliNext = coordsToPair(nextc);
-                int coordxHeliNext = coordsHeli.getFirst();
-                int coordyHeliNext = coordsHeli.getSecond();
-                Double power1= pow((coordxHeli - coordxHeliNext),2);
-                Double power2= pow((coordyHeli - coordyHeliNext),2);
-                Double Euclidean = sqrt( power1+ power2);
-                dist = dist + (Euclidean / 1.667);
-                lastStatus = 1;
+                else {
+                    int id2 = h.itinerary.get(i+1).getFirst();
+                    Group g2 = a.getGroups().get(id2);
+                    String nextc = g2.getcoordG();
+                    Pair<Integer,Integer> coordsHeliNext = coordsToPair(nextc);
+                    int coordxHeliNext = coordsHeli.getFirst();
+                    int coordyHeliNext = coordsHeli.getSecond();
+                    Double power1= pow((coordxHeli - coordxHeliNext),2);
+                    Double power2= pow((coordyHeli - coordyHeliNext),2);
+                    Double Euclidean = sqrt( power1+ power2);
+                    dist = dist + (Euclidean / 1.667);
+                    lastStatus = 1;
+                }
             }
             aux = people + dist.intValue();
         }
