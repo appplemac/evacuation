@@ -63,12 +63,13 @@ public class Headquarter {
         return pos;
     }
 
-    public Helicopter getHeliWithLongestItinerary() {
+    public Helicopter getHeliWithLongestTravelTime(State s) {
         Helicopter res = helicopters.get(0);
         int max = 0;
         for (Helicopter h:helicopters) {
-            if (h.getItineraryLength() > max) {
-                max = h.getItineraryLength();
+            int time = h.getTravelTime(s);
+            if (time > max) {
+                max = time;
                 res = h;
             }
         }

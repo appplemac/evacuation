@@ -58,8 +58,8 @@ public class State {
         Helicopter res = hqs.get(0).getHelicopter(0);
         int max = 0;
         for (Headquarter hq:hqs) {
-            Helicopter heli = hq.getHeliWithLongestItinerary();
-            if (heli.getItineraryLength() > max) res = heli;
+            Helicopter heli = hq.getHeliWithLongestTravelTime(this);
+            if (heli.getTravelTime(this) > max) res = heli;
         }
         return res;
     }
@@ -156,6 +156,7 @@ public class State {
             }
             successors.add(new Successor("", modified));
         }
+        System.out.println("The length of successor list is " + successors.size());
         return successors;
     }
 
@@ -182,12 +183,10 @@ public class State {
     }       */
 
     public int calculateHeuristic(){
-        ArrayList<Integer> times = new ArrayList<Integer>();
         int max = 0;
         for (Headquarter hq : hqs){
             for (Helicopter h: hq.getHelicopters()){
                 int time = h.getTravelTime(this);
-                times.add(time);
                 if (time > max){
                     max = time;
                     idHeliMaximo = h.getIdent();
