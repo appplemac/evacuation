@@ -175,7 +175,14 @@ public class State {
     }
 
     public boolean isGoal(){
-         return numits == 100;
+        System.out.println("Its1: "+numits);
+        if (numits >= 100){
+            System.out.println("Its2: "+numits);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
               /*
     public int calculateHeuristic(){
@@ -204,10 +211,7 @@ public class State {
                 int time = h.getTravelTime(this);
                 //System.out.println(" "+time);
                 times.add(time);
-                if (time > max){
-                    max = time;
-                    idHeliMaximo = h.getIdent();
-                }
+                max = max + time;
             }
         }
         return max;
