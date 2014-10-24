@@ -11,7 +11,7 @@ import aima.search.framework.HeuristicFunction;
 public class EvacuationHeuristicFunction implements HeuristicFunction {
     public double getHeuristicValue(Object a){
         State state = (State)a;
-        int res;
+        double res;
         res = state.calculateHeuristic();
         return res;
     }
