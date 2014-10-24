@@ -154,7 +154,7 @@ public class State {
                     modified.joinRescues(heliWithLongestIt.getIdent(), indexGrp1, indexGrp2);
                 }
             }
-            successors.add(new Successor("", modified));        }
+        }
         return successors;
     }
 
