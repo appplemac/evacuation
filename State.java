@@ -154,9 +154,7 @@ public class State {
                     modified.joinRescues(heliWithLongestIt.getIdent(), indexGrp1, indexGrp2);
                 }
             }
-            successors.add(new Successor("", modified));
-        }
-        System.out.println("The length of successor list is " + successors.size());
+            successors.add(new Successor("", modified));        }
         return successors;
     }
 
