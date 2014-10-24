@@ -28,6 +28,13 @@ public class Helicopter {
         capacity = cargo;
         full = false;
     }
+
+    public Helicopter(Helicopter h) {
+        ident = h.ident;
+        capacity = h.capacity;
+        full = h.full;
+        for (Pair<Integer,Integer> p: h.itinerary) itinerary.add(new Pair(p));
+    }
     
     public int getIdent(){
         return ident;
@@ -159,7 +166,8 @@ public class Helicopter {
         // Indicate that the second group is joined with
         // the previous one
         grp2.setSecond(1);
-        itinerary.add(indexGroup1+1, grp2);
+        if (indexGroup1 < indexGroup2) itinerary.add(indexGroup1+1, grp2);
+        else itinerary.add(indexGroup1, grp2);
     }
 
     public int getGroupId(int indexGroup){

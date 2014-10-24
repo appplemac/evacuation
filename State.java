@@ -25,6 +25,15 @@ public class State {
         numHeli = numHeliPerHQ;
     }
 
+    public State(State state) {
+        hqs = new ArrayList<Headquarter>();
+        groups = new ArrayList<Group>();
+        for (Headquarter hq: state.hqs) hqs.add(new Headquarter(hq));
+        for (Group g: state.groups) groups.add(new Group(g));
+        numits = 0;
+        idHeliMaximo = 0;
+    }
+
     public void addHQ(Headquarter hq){
         hqs.add(hq);
     }
@@ -43,6 +52,16 @@ public class State {
             count += hq.getNumHelicopters();
         }
         return count;
+    }
+
+    public Helicopter getHeliWithLongestItinerary() {
+        Helicopter res = hqs.get(0).getHelicopter(0);
+        int max = 0;
+        for (Headquarter hq:hqs) {
+            Helicopter heli = hq.getHeliWithLongestItinerary();
+            if (heli.getItineraryLength() > max) res = heli;
+        }
+        return res;
     }
 
     public int getnumHeli(){
@@ -114,55 +133,29 @@ public class State {
 
     public ArrayList<Successor> generateSuccessors (){
         ArrayList<Successor> successors = new ArrayList<Successor>();
-        State orig = this;
-        State modif;
-        for (Headquarter hq : hqs){
-            for (Helicopter h : hq.getHelicopters()){
-                for(Headquarter hq2 : hqs){
-                    for(Helicopter h2 : hq2.getHelicopters()){
-                        if (h.getIdent() != h2.getIdent() && h.getItineraryLength()>1){
-                            modif = orig;
-                            Random rand = new Random();
-                            int randNum = rand.nextInt();
-                            randNum = Math.abs(randNum);
-                            int index1 = randNum % (h.getItineraryLength());
-                            randNum = rand.nextInt();
-                            randNum = Math.abs(randNum);
-                            int index2 = randNum % (h2.getItineraryLength());
-                            modif.moveGroup(h.getIdent(), h2.getIdent(), index1, index2);
-                            System.out.println("Moving shit around");
-                            String explanation;
-                            explanation = "move group " + index1 + " of helicopter " + h.getIdent() + " to " + index2 + " of " + h2.getIdent();
-                            successors.add(new Successor(explanation, modif));
-                            System.out.println(""+successors.size());
-                        } else {
-                            modif = orig;
-                            Boolean found = false;
-                            String explanation = "Nothing joined";
-                            for (int i = 0; i < h.getItinerary().size(); ++i) {
-                                for (int j = i+1; j < h.getItinerary().size(); ++j) {
-                                    if ((i < h.getItineraryLength() - 2) && (j < h.getItineraryLength() - 1))  {
-                                        if (h.getItinerary().get(i).getSecond() == 0 && h.getItinerary().get(i+1).getSecond() == 0 &&
-                                        h.getItinerary().get(j).getSecond() == 0 && h.getItinerary().get(j+1).getSecond() == 0 &&
-                                        groups.get(h.getItinerary().get(i).getFirst()).getNumPeople() +
-                                        groups.get(h.getItinerary().get(j).getFirst()).getNumPeople() <= h.getCapacity()) {
-                                            modif.joinRescues(h.getIdent(),i,j);
-                                            System.out.println("Joining shit around");
-                                            explanation = "Joined groups " + i + " and " + j + " of helicopter " + h.getIdent();
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (found) break;
-                            }
-                            if (found) successors.add(new Successor(explanation, modif));
-                        }
-                    }
+        State currentState = this;
+        Helicopter heliWithLongestIt = getHeliWithLongestItinerary();
+        Random random = new Random();
+        for (int i = 0; i < 100; ++i) {
+            State modified = new State(currentState);
+            if (i%2 == 0) {
+                Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
+                Helicopter heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
+                int indexGrp1 = random.nextInt(heliWithLongestIt.getItineraryLength());
+                int indexGrp2 = random.nextInt(heli2.getItineraryLength());
+                modified.moveGroup(heliWithLongestIt.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
+            }
+            else if (heliWithLongestIt.getItineraryLength() > 1) {
+                int indexGrp1 = random.nextInt(heliWithLongestIt.getItineraryLength());
+                int indexGrp2 = random.nextInt(heliWithLongestIt.getItineraryLength());
+                while (indexGrp1 == indexGrp2) indexGrp2 = random.nextInt(heliWithLongestIt.getItineraryLength());
+                if (heliWithLongestIt.getGroup(indexGrp1).getSecond() == 0
+                        && heliWithLongestIt.getGroup(indexGrp2).getSecond() == 0) {
+                    modified.joinRescues(heliWithLongestIt.getIdent(), indexGrp1, indexGrp2);
                 }
             }
+            successors.add(new Successor("", modified));
         }
-        ++numits;
         return successors;
     }
 

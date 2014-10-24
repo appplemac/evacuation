@@ -18,6 +18,13 @@ public class Group {
     private int Gcoordy;
     /*int TimeOfGroup;*/
     
+    public Group(Group g) {
+        numpeople = g.numpeople;
+        priority = g.priority;
+        Gcoordx = g.Gcoordx;
+        Gcoordy = g.Gcoordy;
+    }
+
     public Group(int num, int p, int x, int y){
         numpeople = num;
         priority = p;

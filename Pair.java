@@ -11,6 +11,11 @@ public class Pair<class1, class2> {
     private class1 first;
     private class2 second;
 
+    Pair(Pair<class1, class2> p) {
+        first = p.first;
+        second = p.second;
+    }
+
     Pair(class1 a, class2 b){
             first = a;
             second = b;

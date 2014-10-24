@@ -29,6 +29,14 @@ public class Headquarter {
         helicopters = helis;
     }
 
+    public Headquarter(Headquarter hq) {
+        helicopters = new ArrayList<Helicopter>();
+        HQcoordx = hq.HQcoordx;
+        HQcoordy = hq.HQcoordy;
+        HQident = hq.HQident;
+        for (Helicopter h: hq.helicopters) helicopters.add(new Helicopter(h));
+    }
+
     public int getIdent(){
         return HQident;
     }
@@ -55,4 +63,15 @@ public class Headquarter {
         return pos;
     }
 
+    public Helicopter getHeliWithLongestItinerary() {
+        Helicopter res = helicopters.get(0);
+        int max = 0;
+        for (Helicopter h:helicopters) {
+            if (h.getItineraryLength() > max) {
+                max = h.getItineraryLength();
+                res = h;
+            }
+        }
+        return res;
+    }
 }
