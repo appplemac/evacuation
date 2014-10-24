@@ -1,5 +1,8 @@
 package com.company;
 import aima.search.framework.SuccessorFunction;
+
+import java.util.ArrayList;
+import aima.search.framework.Successor;
 import java.util.List;
 
 /**
@@ -12,6 +15,10 @@ import java.util.List;
 public class EvacuationSuccessorFunction implements SuccessorFunction {
     public List getSuccessors(Object a) {
         State state = (State)a;
-        return state.generateSuccessors();
+        System.out.println("Entro en el generar sucesores.");
+        List<Successor>  res = state.generateSuccessors();
+        System.out.println("Salgo del generar sucesores.");
+        System.out.println("Size list: "+res.size());
+        return res;
     }
 }

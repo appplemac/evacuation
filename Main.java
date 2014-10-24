@@ -20,7 +20,6 @@ public class Main {
             Problem problem = new Problem(solution, new EvacuationSuccessorFunction(), new EvacuationGoalTest(), new EvacuationHeuristicFunction());
             Search search = new HillClimbingSearch();
             SearchAgent searchAgent = new SearchAgent(problem, search);
-
             List explanations = searchAgent.getActions();
             System.out.println("The size of explanations list is " + explanations.size());
             for (Object o:explanations) {

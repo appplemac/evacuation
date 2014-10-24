@@ -62,7 +62,6 @@ public class Helicopter {
             int coordxHeli = coordsHeli.getFirst();
             int coordyHeli = coordsHeli.getSecond();
             int people = g.getNumPeople();
-            System.out.println(""+ p.getSecond()+" id: "+this.ident);
             if (g.getPriority() == 2) {
                 people = people * 2;
             }
