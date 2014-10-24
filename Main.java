@@ -21,7 +21,8 @@ public class Main {
             Search search = new HillClimbingSearch();
             SearchAgent searchAgent = new SearchAgent(problem, search);
             List explanations = searchAgent.getActions();
-            System.out.println("The size of explanations list is " + explanations.size());
+            State a = (State)search.getGoalState();
+            System.out.println("The size of explanations list is " + explanations.size()+ " Goal State :" + a.numits);
             for (Object o:explanations) {
                 System.out.println((String)o);
             }
