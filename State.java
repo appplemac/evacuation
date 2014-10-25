@@ -55,7 +55,7 @@ public class State {
         return count;
     }
 
-    public Helicopter getHeliWithLongestItinerary() {
+    public Helicopter getHeliWithLongestTravelTime() {
         Helicopter res = hqs.get(0).getHelicopter(0);
         int max = 0;
         for (Headquarter hq:hqs) {
@@ -135,24 +135,24 @@ public class State {
     public ArrayList<Successor> generateSuccessors (){
         ArrayList<Successor> successors = new ArrayList<Successor>();
         State currentState = this;
-        Helicopter heliWithLongestIt = getHeliWithLongestItinerary();
+        Helicopter heliWithLongestTravelTime = getHeliWithLongestTravelTime();
         Random random = new Random();
         for (int i = 0; i < 100; ++i) {
             State modified = new State(currentState);
             if (i%2 == 0) {
                 Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
                 Helicopter heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
-                int indexGrp1 = random.nextInt(heliWithLongestIt.getItineraryLength());
+                int indexGrp1 = random.nextInt(heliWithLongestTravelTime.getItineraryLength());
                 int indexGrp2 = random.nextInt(heli2.getItineraryLength());
-                modified.moveGroup(heliWithLongestIt.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
+                modified.moveGroup(heliWithLongestTravelTime.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
             }
-            else if (heliWithLongestIt.getItineraryLength() > 1) {
-                int indexGrp1 = random.nextInt(heliWithLongestIt.getItineraryLength());
-                int indexGrp2 = random.nextInt(heliWithLongestIt.getItineraryLength());
-                while (indexGrp1 == indexGrp2) indexGrp2 = random.nextInt(heliWithLongestIt.getItineraryLength());
-                if (heliWithLongestIt.getGroup(indexGrp1).getSecond() == 0
-                        && heliWithLongestIt.getGroup(indexGrp2).getSecond() == 0) {
-                    modified.joinRescues(heliWithLongestIt.getIdent(), indexGrp1, indexGrp2);
+            else if (heliWithLongestTravelTime.getItineraryLength() > 1) {
+                int indexGrp1 = random.nextInt(heliWithLongestTravelTime.getItineraryLength());
+                int indexGrp2 = random.nextInt(heliWithLongestTravelTime.getItineraryLength());
+                while (indexGrp1 == indexGrp2) indexGrp2 = random.nextInt(heliWithLongestTravelTime.getItineraryLength());
+                if (heliWithLongestTravelTime.getGroup(indexGrp1).getSecond() == 0
+                        && heliWithLongestTravelTime.getGroup(indexGrp2).getSecond() == 0) {
+                    modified.joinRescues(heliWithLongestTravelTime.getIdent(), indexGrp1, indexGrp2);
                 }
             }
         }
