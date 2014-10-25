@@ -21,15 +21,17 @@ public class Helicopter {
     private int ident;
     private int capacity;
     private boolean full;
-    private ArrayList<Pair<Integer,Integer> > itinerary = new ArrayList<Pair<Integer,Integer> >();
+    private ArrayList<Pair<Integer,Integer> > itinerary;
     
     public Helicopter(int id){
+        itinerary = new ArrayList<Pair<Integer,Integer> >();
         ident = id;
         capacity = cargo;
         full = false;
     }
 
     public Helicopter(Helicopter h) {
+        itinerary = new ArrayList<Pair<Integer,Integer> >();
         ident = h.ident;
         capacity = h.capacity;
         full = h.full;

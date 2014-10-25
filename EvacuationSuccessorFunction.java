@@ -15,10 +15,7 @@ import java.util.List;
 public class EvacuationSuccessorFunction implements SuccessorFunction {
     public List getSuccessors(Object a) {
         State state = (State)a;
-        System.out.println("Entro en el generar sucesores.");
         List<Successor>  res = state.generateSuccessors();
-        System.out.println("Salgo del generar sucesores.");
-        System.out.println("Size list: "+res.size());
         return res;
     }
 }
