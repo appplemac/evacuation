@@ -139,22 +139,19 @@ public class State {
         Helicopter heli1 = hqOfHeli1.getHelicopter(random.nextInt(hqOfHeli1.getNumHelicopters()));
         for (int i = 0; i < 100; ++i) {
             State modified = new State(this);
-            if (i % 2 != 0) {
-                Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
-                while (hqOfHeli2 == hqOfHeli1) hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
-                Helicopter heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
-                int indexGrp1 = random.nextInt(heli1.getItineraryLength());
-                int indexGrp2 = random.nextInt(heli2.getItineraryLength());
-                modified.moveGroup(heli1.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
-            }
-            else if (heli1.getItineraryLength() > 1) {
-                int indexGrp1 = random.nextInt(heli1.getItineraryLength());
-                int indexGrp2 = random.nextInt(heli1.getItineraryLength());
-                while (indexGrp1 == indexGrp2) indexGrp2 = random.nextInt(heli1.getItineraryLength());
-                if (heli1.getGroup(indexGrp1).getSecond() == 0
-                        && heli1.getGroup(indexGrp2).getSecond() == 0) {
-                    modified.joinRescues(heli1.getIdent(), indexGrp1, indexGrp2);
-                }
+            Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
+            while (hqOfHeli2 == hqOfHeli1) hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
+            Helicopter heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
+            int indexGrp1 = random.nextInt(heli1.getItineraryLength());
+            int indexGrp2 = random.nextInt(heli2.getItineraryLength());
+            modified.moveGroup(heli1.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
+
+            indexGrp1 = random.nextInt(heli2.getItineraryLength());
+            indexGrp2 = random.nextInt(heli2.getItineraryLength());
+            while (indexGrp1 == indexGrp2) indexGrp2 = random.nextInt(heli2.getItineraryLength());
+            if (heli2.getGroup(indexGrp1).getSecond() == 0
+                    && heli2.getGroup(indexGrp2).getSecond() == 0) {
+                modified.joinRescues(heli2.getIdent(), indexGrp1, indexGrp2);
             }
             successors.add(new Successor("", modified));
         }
