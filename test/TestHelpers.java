@@ -31,7 +31,9 @@ public class TestHelpers {
     }
 
     public Headquarter hqFactory(int numHelisPerHq) {
-        Headquarter hq = new Headquarter(hqCount, hqX, hqY);
+        Headquarter hq;
+        if (hqY % 2 == 0) hq = new Headquarter(hqCount, hqX, 0);
+        else hq = new Headquarter(hqCount, 0, hqY);
         hqX += 10;
         hqY += 15;
         for (int i = 0; i < numHelisPerHq; ++i) {
