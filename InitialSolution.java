@@ -34,4 +34,38 @@ public class InitialSolution {
         }
         return state;
     }
+
+    public static State getInitialSolution2(
+            State state
+    ) throws Exception {
+        ArrayList<Group> groups = state.getGroups();
+        ArrayList<Headquarter> hqs = state.getHQs();
+        int numHelicopters = state.getNumHelicopters();
+        int numGroups = groups.size();
+        int groupsPerHelicopter = numGroups / numHelicopters;
+        int lastAssignedGroup = 0;
+        for (Headquarter hq: hqs) {
+            for (Helicopter heli: hq.getHelicopters()) {
+                for (int i = lastAssignedGroup;
+                     i < lastAssignedGroup + groupsPerHelicopter &&
+                             i < numGroups; ++i) {
+                    heli.addToItinerary(i);
+                }
+                lastAssignedGroup += groupsPerHelicopter;
+            }
+        }
+        if (lastAssignedGroup < numGroups) {
+            for (Headquarter hq: hqs) {
+                for (Helicopter heli: hq.getHelicopters()) {
+                    for (int i = lastAssignedGroup;
+                         i < lastAssignedGroup + 1 &&
+                                 i < numGroups; ++i) {
+                        heli.addToItinerary(i);
+                    }
+                    lastAssignedGroup += 1;
+                }
+            }
+        }
+        return state;
+    }
 }

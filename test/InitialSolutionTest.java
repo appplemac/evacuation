@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by alexey on 06/10/14.
@@ -79,6 +78,30 @@ public class InitialSolutionTest {
                 get(0).getHelicopter(1).getItineraryLength(), 3);
         assertEquals(initialSolution.getHQs().
                 get(0).getHelicopter(2).getItineraryLength(), 4);
+    }
+
+    @Test
+    public void solution2WithInclompleteDivision() {
+        State state = helpers.stateFactory(1, 3, 10);
+
+        State initialSolution;
+        try {
+            initialSolution =
+                    InitialSolution.getInitialSolution2(state);
+        } catch (Exception e) {
+            System.out.println("Catched the exception: ");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            initialSolution = new State(new ArrayList<Headquarter>(), 0,
+                    new ArrayList<Group>());
+        }
+
+        assertEquals(initialSolution.getHQs().
+                get(0).getHelicopter(0).getItineraryLength(), 4);
+        assertEquals(initialSolution.getHQs().
+                get(0).getHelicopter(1).getItineraryLength(), 3);
+        assertEquals(initialSolution.getHQs().
+                get(0).getHelicopter(2).getItineraryLength(), 3);
     }
 
     public static void main(String[] args) {
