@@ -106,7 +106,7 @@ public class State {
         int value;
         SecureRandom rand = new SecureRandom();
         SecureRandom rand2 = new SecureRandom();
-        value = (rand.nextInt(max) * rand2.nextInt(max)) % max;
+        value = (rand.nextInt(max+1) * rand2.nextInt(max+2)) % max;
         return value;
     }
     
