@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.company;
 import java.util.ArrayList;
 import java.util.Random;
@@ -68,7 +62,7 @@ public class State {
     public int getnumHeli(){
         return numHeli;
     }
-
+    
     public void moveGroup(int idHeli1, int idHeli2, int indexOrigen, int indexDestino){
         Pair<Integer,Integer> aux;
         int indexHQ = idHeli1 / numHeli;
@@ -107,28 +101,37 @@ public class State {
         auxHQ.getHelicopter(indexHeli).joinGroups(index1, index2);
     }
 
+    public int getRandom(int max) {
+        int value = 0;
+        Random rand = new Random();
+        Random rand2 = new Random();
+        value = (rand.nextInt(max) * rand.nextInt(max)) % max;
+        return value;
+    }
+    
     public ArrayList<Successor> generateSuccessors (){
         ArrayList<Successor> successors = new ArrayList<Successor>();
-        Random random = new Random();
-        for (int i = 0; i < 100; ++i) {
-            Headquarter hqOfHeli1 = hqs.get(random.nextInt(hqs.size()));
-            Helicopter heli1 = hqOfHeli1.getHelicopter(random.nextInt(hqOfHeli1.getNumHelicopters()));
+        String explanation;
+        for (int i = 0; i < 1000; ++i) {
+            Headquarter hqOfHeli1 = hqs.get(getRandom(hqs.size()));
+            Helicopter heli1 = hqOfHeli1.getHelicopter(getRandom(hqOfHeli1.getNumHelicopters()));
             State modified = new State(this);
-            Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
-            Helicopter heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
-            while (heli2 == heli1) heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
-            int indexGrp1 = random.nextInt(heli1.getItineraryLength());
-            int indexGrp2 = random.nextInt(heli2.getItineraryLength());
+            Headquarter hqOfHeli2 = hqs.get(getRandom(hqs.size()));
+            Helicopter heli2 = hqOfHeli2.getHelicopter(getRandom(hqOfHeli2.getNumHelicopters()));
+            while (heli2 == heli1) heli2 = hqOfHeli2.getHelicopter(getRandom(hqOfHeli2.getNumHelicopters()));
+            int indexGrp1 = getRandom(heli1.getItineraryLength());
+            int indexGrp2 = getRandom(heli2.getItineraryLength());
             modified.moveGroup(heli1.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
-
-            indexGrp1 = random.nextInt(heli2.getItineraryLength());
-            indexGrp2 = random.nextInt(heli2.getItineraryLength());
-            while (indexGrp1 == indexGrp2) indexGrp2 = random.nextInt(heli2.getItineraryLength());
+            explanation = "Moved group " + indexGrp1 + " from heli " + heli1.getIdent() + " to position " + indexGrp2 + " from heli " + heli2.getIdent();
+            indexGrp1 = getRandom(heli2.getItineraryLength());
+            indexGrp2 = getRandom(heli2.getItineraryLength());
+            while (indexGrp1 == indexGrp2) indexGrp2 = getRandom(heli2.getItineraryLength());
             if (heli2.getGroup(indexGrp1).getSecond() == 0
                     && heli2.getGroup(indexGrp2).getSecond() == 0) {
                 modified.joinRescues(heli2.getIdent(), indexGrp1, indexGrp2);
             }
-            successors.add(new Successor("", modified));
+            explanation = explanation + " AND joined group " + indexGrp1 + " from heli " + heli1.getIdent() + " with group " + indexGrp2 + " from heli " + heli2.getIdent();
+            successors.add(new Successor(explanation, modified));
         }
         return successors;
     }
