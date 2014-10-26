@@ -135,13 +135,13 @@ public class State {
     public ArrayList<Successor> generateSuccessors (){
         ArrayList<Successor> successors = new ArrayList<Successor>();
         Random random = new Random();
-        Headquarter hqOfHeli1 = hqs.get(random.nextInt(hqs.size()));
-        Helicopter heli1 = hqOfHeli1.getHelicopter(random.nextInt(hqOfHeli1.getNumHelicopters()));
         for (int i = 0; i < 100; ++i) {
+            Headquarter hqOfHeli1 = hqs.get(random.nextInt(hqs.size()));
+            Helicopter heli1 = hqOfHeli1.getHelicopter(random.nextInt(hqOfHeli1.getNumHelicopters()));
             State modified = new State(this);
             Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
-            while (hqOfHeli2 == hqOfHeli1) hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
             Helicopter heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
+            while (heli2 == heli1) heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
             int indexGrp1 = random.nextInt(heli1.getItineraryLength());
             int indexGrp2 = random.nextInt(heli2.getItineraryLength());
             modified.moveGroup(heli1.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
