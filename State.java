@@ -134,11 +134,10 @@ public class State {
 
     public ArrayList<Successor> generateSuccessors (){
         ArrayList<Successor> successors = new ArrayList<Successor>();
-        State currentState = this;
         Helicopter heliWithLongestTravelTime = getHeliWithLongestTravelTime();
         Random random = new Random();
         for (int i = 0; i < 100; ++i) {
-            State modified = new State(currentState);
+            State modified = new State(this);
             if (i%2 == 0) {
                 Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
                 Helicopter heli2 = hqOfHeli2.getHelicopter(random.nextInt(hqOfHeli2.getNumHelicopters()));
@@ -170,38 +169,33 @@ public class State {
             return false;
         }
     }
-              /*
-    public int calculateHeuristic(){
-        int itineraryLengthSum = 0;
-        int maxItineraryLength = 0;
-        int numHelis = 0;
-        for (Headquarter hq : hqs){
-            for (Helicopter h: hq.getHelicopters()){
-                int length = h.getItineraryLength();
-                if (length > maxItineraryLength) maxItineraryLength = length;
-                itineraryLengthSum += length;
-                ++numHelis;
-            }
-        }
 
-        int meanItineraryLength = itineraryLengthSum / numHelis;
-        int heuristic = meanItineraryLength + maxItineraryLength^2;
-        return heuristic;
-    }       */
+//    public int calculateHeuristic(){
+//        int itineraryLengthSum = 0;
+//        int maxItineraryLength = 0;
+//        int numHelis = 0;
+//        for (Headquarter hq : hqs){
+//            for (Helicopter h: hq.getHelicopters()){
+//                int length = h.getItineraryLength();
+//                if (length > maxItineraryLength) maxItineraryLength = length;
+//                itineraryLengthSum += length;
+//                ++numHelis;
+//            }
+//        }
+//
+//        int meanItineraryLength = itineraryLengthSum / numHelis;
+//        int heuristic = meanItineraryLength + maxItineraryLength^2;
+//        return heuristic;
+//    }
 
     public int calculateHeuristic(){
-        int max = 0;
+        int sum = 0;
         for (Headquarter hq : hqs){
             for (Helicopter h: hq.getHelicopters()) {
                 int time = h.getTravelTime(this);
-                System.out.print(time + ' ');
-                if (time > max) {
-                    max = time;
-                    idHeliMaximo = h.getIdent();
-                }
+                sum += time;
             }
         }
-        System.out.println();
-        return max;
+        return sum;
     }
 }

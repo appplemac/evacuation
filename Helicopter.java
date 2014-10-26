@@ -87,8 +87,8 @@ public class Helicopter {
                     Group g2 = a.getGroups().get(id2);
                     String nextc = g2.getcoordG();
                     Pair<Integer,Integer> coordsHeliPrev = coordsToPair(nextc);
-                    int coordxHeliPrev = coordsHeli.getFirst();
-                    int coordyHeliPrev = coordsHeli.getSecond();
+                    int coordxHeliPrev = coordsHeliPrev.getFirst();
+                    int coordyHeliPrev = coordsHeliPrev.getSecond();
                     Double power1= pow((coordxHeli - coordxHeliPrev),2);
                     Double power2= pow((coordyHeli - coordyHeliPrev),2);
                     Double Euclidean = sqrt( power1+ power2);
@@ -100,8 +100,8 @@ public class Helicopter {
                     Group g2 = a.getGroups().get(id2);
                     String nextc = g2.getcoordG();
                     Pair<Integer,Integer> coordsHeliNext = coordsToPair(nextc);
-                    int coordxHeliNext = coordsHeli.getFirst();
-                    int coordyHeliNext = coordsHeli.getSecond();
+                    int coordxHeliNext = coordsHeliNext.getFirst();
+                    int coordyHeliNext = coordsHeliNext.getSecond();
                     Double power1= pow((coordxHeli - coordxHeliNext),2);
                     Double power2= pow((coordyHeli - coordyHeliNext),2);
                     Double Euclidean = sqrt( power1+ power2);
