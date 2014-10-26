@@ -157,14 +157,7 @@ public class State {
     }
 
     public boolean isGoal(){
-        System.out.println("Its1: "+numits);
-        if (numits >= 100){
-            System.out.println("Its2: "+numits);
-            return true;
-        }
-        else {
-            return false;
-        }
+        return false;
     }
 
 //    public int calculateHeuristic(){
