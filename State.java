@@ -76,51 +76,26 @@ public class State {
         Headquarter auxHQ = hqs.get(indexHQ);
         Helicopter auxHeli = auxHQ.getHelicopter(indexHeli);
         aux = auxHeli.getGroup(indexOrigen);
+        ArrayList< Pair<Integer,Integer> > itinerary1 = auxHeli.getItinerary();
+        if (itinerary1.get(indexOrigen).getSecond() == 0) {
+            if (indexOrigen+1 < itinerary1.size()) {
+                if (itinerary1.get(indexOrigen+1).getSecond() == 1) {
+                    itinerary1.get(indexOrigen+1).setSecond(0);
+                }
+            }
+        }
         auxHeli.getItinerary().remove(indexOrigen);
         indexHQ = idHeli2 / numHeli;
         indexHeli = idHeli2 % numHeli;
         auxHQ = hqs.get(indexHQ);
         Helicopter auxHeli2 = auxHQ.getHelicopter(indexHeli);
         auxHeli2.getItinerary().add(indexDestino, aux);
-        
-        ArrayList< Pair<Integer,Integer> > itinerary1 = auxHeli.getItinerary();
         ArrayList< Pair<Integer,Integer> > itinerary2 = auxHeli2.getItinerary();
-        int sumcargo = 0;
-        boolean first = true;
-        for(Pair<Integer,Integer> auxp1 : itinerary1){
-            Group g1 = groups.get(auxp1.getFirst());
-            int people = g1.getNumPeople();
-            if (first){
-                auxp1.setSecond(0);
-                sumcargo = sumcargo+people;
-                first = false;
-            }
-            else if (people + sumcargo <= 15 && !first){
-                auxp1.setSecond(1);
-                sumcargo = sumcargo + people;
-            }
-            else {
-                auxp1.setSecond(0);
-                sumcargo = people;
-            }
-        }
-        sumcargo = 0;
-        first = true;
-        for(Pair<Integer,Integer> auxp2 : itinerary2){
-            Group g2 = groups.get(auxp2.getFirst());
-            int people = g2.getNumPeople();
-            if (first){
-                auxp2.setSecond(0);
-                sumcargo = sumcargo+people;
-                first = false;
-            }
-            else if (people + sumcargo <= 15 && !first){
-                auxp2.setSecond(1);
-                sumcargo = sumcargo + people;
-            }
-            else {
-                auxp2.setSecond(0);
-                sumcargo = people;
+        if (itinerary2.get(indexDestino).getSecond() == 1) {
+            if (indexDestino+1 < itinerary2.size() && indexDestino-1 > 0) {
+                if (itinerary2.get(indexDestino+1).getSecond() == 1 && itinerary2.get(indexDestino-1).getSecond() == 1) {
+                    itinerary2.get(indexDestino).setSecond(0);
+                }
             }
         }
     }
