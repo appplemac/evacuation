@@ -205,8 +205,16 @@ public class Helicopter {
         if (indexGrp1 == indexGrp2) return false;
 
         if (getGroupStatus(indexGrp1) == 0) {
-            // Not controlling the case where we try to join the group to the cluster
-            // it is already part of
+            if (indexGrp2 > 0 && getGroupStatus(indexGrp2) != 0 && getGroupId(indexGrp2-1) == indexGrp1) {
+                // Groups are already joined
+                return false;
+            }
+
+            if (indexGrp2 > 1 && getGroupStatus(indexGrp2) != 0 && getGroupStatus(indexGrp2-1) != 0 &&
+                    getGroupId(indexGrp2-2) == indexGrp1) {
+                // Part of three-group cluster already
+                return false;
+            }
 
             if (getGroupStatus(indexGrp2) != 0 && indexGrp2 > 0 && getGroupId(indexGrp2-1) == indexGrp1) {
                 // Groups are already joined

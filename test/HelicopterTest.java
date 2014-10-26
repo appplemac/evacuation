@@ -93,6 +93,8 @@ public class HelicopterTest {
         heli.joinGroups(0, 2);
         assertThat("cannot join any more group to the cluster because of capacity limits",
                 heli.suitableForJoin(0, 3, groups), equalTo(false));
+        assertThat("cannot join group 2 as it is already part of cluster",
+                heli.suitableForJoin(0, 2, groups), equalTo(false));
     }
 
     public static void main(String[] args) {
