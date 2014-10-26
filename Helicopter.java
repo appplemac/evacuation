@@ -183,7 +183,51 @@ public class Helicopter {
         return itinerary.get(indexGroup);
     }
 
+//    public Pair<Integer, Integer> getFirstAndLastGroupOfRescue(int indexGrp) {
+//        int indexInit = indexGrp;
+//        int indexEnd = indexGrp;
+//        for (int i = indexGrp; i > 0; i--) {
+//            if (itinerary.get(i).getSecond() == 0) indexInit = i;
+//            break;
+//        }
+//        for (int i = indexGrp; i < itinerary.size(); ++i) {
+//            if (itinerary.get(i).getSecond() == 0) indexEnd = i;
+//            break;
+//        }
+//        return new Pair<Integer, Integer>(indexInit, indexEnd);
+//    }
+
     public int getItineraryLength() {
         return itinerary.size();
+    }
+
+    public boolean suitableForJoin(int indexGrp1, int indexGrp2, ArrayList<Group> groups) {
+        if (indexGrp1 == indexGrp2) return false;
+
+        if (getGroupStatus(indexGrp1) == 0) {
+            // Not controlling the case where we try to join the group to the cluster
+            // it is already part of
+
+            if (getGroupStatus(indexGrp2) != 0 && indexGrp2 > 0 && getGroupId(indexGrp2-1) == indexGrp1) {
+                // Groups are already joined
+                return false;
+            }
+
+            if ((indexGrp2 < itinerary.size()-1 && getGroupStatus(indexGrp2 + 1) != 0) &&
+                    (indexGrp2 > 0 && getGroupStatus(indexGrp2 - 1) != 0)) {
+                // Three groups in the cluster already, cannot add this one there
+                return false;
+            }
+
+            int clusterCapacity = groups.get(getGroupId(indexGrp1)).getNumPeople();
+            for (int i = indexGrp1+1; i < itinerary.size() && getGroupStatus(i) != 0; ++i) {
+                clusterCapacity += groups.get(getGroupId(i)).getNumPeople();
+            }
+            if (clusterCapacity + groups.get(getGroupId(indexGrp2)).getNumPeople() > cargo) return false;
+
+            return true;
+        }
+
+        return false;
     }
 }
