@@ -113,7 +113,8 @@ public class State {
     public ArrayList<Successor> generateSuccessors (){
         ArrayList<Successor> successors = new ArrayList<Successor>();
         String explanation;
-        for (int i = 0; i < 1000; ++i) {
+        int numits = groups.size() * 10;
+        for (int i = 0; i < numits; ++i) {
             Headquarter hqOfHeli1 = hqs.get(getRandom(hqs.size()));
             Helicopter heli1 = hqOfHeli1.getHelicopter(getRandom(hqOfHeli1.getNumHelicopters()));
             State modified = new State(this);
