@@ -125,6 +125,9 @@ public class State {
                 ++retryCount;
             }
 
+            if (heli1.getItineraryLength() == 0 || heli2.getItineraryLength() == 0) {
+                continue;
+            }
             int indexGrp1 = getRandom(heli1.getItineraryLength());
             int indexGrp2 = getRandom(heli2.getItineraryLength());
 
