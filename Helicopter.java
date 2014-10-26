@@ -82,7 +82,7 @@ public class Helicopter {
                     dist = dist + (Euclidean / 1.667)+20;
                     lastStatus = 0;
                 }
-                else if (lastStatus == 0){
+                else if (lastStatus == 0 && i > 0){
                     int id2 = h.itinerary.get(i-1).getFirst();
                     Group g2 = a.getGroups().get(id2);
                     String nextc = g2.getcoordG();
