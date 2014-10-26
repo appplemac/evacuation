@@ -137,7 +137,7 @@ public class State {
         State currentState = this;
         Helicopter heliWithLongestTravelTime = getHeliWithLongestTravelTime();
         Random random = new Random();
-        for (int i = 0; i < 1000; ++i) {
+        for (int i = 0; i < 100; ++i) {
             State modified = new State(currentState);
             if (i%2 == 0) {
                 Headquarter hqOfHeli2 = hqs.get(random.nextInt(hqs.size()));
@@ -194,12 +194,14 @@ public class State {
         for (Headquarter hq : hqs){
             for (Helicopter h: hq.getHelicopters()) {
                 int time = h.getTravelTime(this);
+                System.out.print(time + ' ');
                 if (time > max) {
                     max = time;
                     idHeliMaximo = h.getIdent();
                 }
             }
         }
+        System.out.println();
         return max;
     }
 }
