@@ -1,5 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package com.company;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
@@ -103,62 +108,49 @@ public class State {
     }
 
     public int getRandom(int max) {
-        int value;
-        SecureRandom rand = new SecureRandom();
-        SecureRandom rand2 = new SecureRandom();
-        value = (rand.nextInt(max+1) * rand2.nextInt(max+2)) % max;
+        int value = 0;
+        Random rand = new Random();
+        Random rand2 = new Random();
+        value = (rand.nextInt(max) * rand.nextInt(max)) % max;
         return value;
     }
     
     public ArrayList<Successor> generateSuccessors (){
         ArrayList<Successor> successors = new ArrayList<Successor>();
         String explanation;
-        int numits = groups.size() * 10;
-        for (int i = 0; i < numits; ++i) {
+        for (int i = 0; i < 1000; ++i) {
             Headquarter hqOfHeli1 = hqs.get(getRandom(hqs.size()));
             Helicopter heli1 = hqOfHeli1.getHelicopter(getRandom(hqOfHeli1.getNumHelicopters()));
             State modified = new State(this);
             Headquarter hqOfHeli2 = hqs.get(getRandom(hqs.size()));
             Helicopter heli2 = hqOfHeli2.getHelicopter(getRandom(hqOfHeli2.getNumHelicopters()));
-            int retryCount = 0;
-            while (retryCount < 5 && heli2 == heli1) {
-                heli2 = hqOfHeli2.getHelicopter(getRandom(hqOfHeli2.getNumHelicopters()));
-                ++retryCount;
-            }
-
-            if (heli1.getItineraryLength() == 0 || heli2.getItineraryLength() == 0) {
-                continue;
-            }
+            while (heli2 == heli1) heli2 = hqOfHeli2.getHelicopter(getRandom(hqOfHeli2.getNumHelicopters()));
             int indexGrp1 = getRandom(heli1.getItineraryLength());
             int indexGrp2 = getRandom(heli2.getItineraryLength());
-
-            if (retryCount < 5) {
-                // Consistent state
-                modified.moveGroup(heli1.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
-                explanation = "Moved group " + indexGrp1 + " from heli " + heli1.getIdent() + " to position " + indexGrp2 + " from heli " + heli2.getIdent();
-            }
-            else explanation = "";
-
+            modified.moveGroup(heli1.getIdent(), heli2.getIdent(), indexGrp1, indexGrp2);
+            explanation = "Moved group " + indexGrp1 + " from heli " + heli1.getIdent() + " to position " + indexGrp2 + " from heli " + heli2.getIdent();
             indexGrp1 = getRandom(heli2.getItineraryLength());
             indexGrp2 = getRandom(heli2.getItineraryLength());
-            retryCount = 0;
-            while (retryCount < 5 && !heli2.suitableForJoin(indexGrp1, indexGrp2, groups)) {
-                indexGrp1 = getRandom(heli2.getItineraryLength());
-                indexGrp2 = getRandom(heli2.getItineraryLength());
-                ++retryCount;
-            }
-            if (retryCount < 5) {
-                // Consistent state
+            while (indexGrp1 == indexGrp2) indexGrp2 = getRandom(heli2.getItineraryLength());
+            if (heli2.getGroup(indexGrp1).getSecond() == 0
+                    && heli2.getGroup(indexGrp2).getSecond() == 0) {
                 modified.joinRescues(heli2.getIdent(), indexGrp1, indexGrp2);
-                explanation = explanation + " AND joined group " + indexGrp1 + " from heli " + heli1.getIdent() + " with group " + indexGrp2 + " from heli " + heli2.getIdent();
             }
+            explanation = explanation + " AND joined group " + indexGrp1 + " from heli " + heli1.getIdent() + " with group " + indexGrp2 + " from heli " + heli2.getIdent();
             successors.add(new Successor(explanation, modified));
         }
         return successors;
     }
 
     public boolean isGoal(){
-        return false;
+        System.out.println("Its1: "+numits);
+        if (numits >= 100){
+            System.out.println("Its2: "+numits);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 //    public int calculateHeuristic(){
@@ -187,6 +179,7 @@ public class State {
                 sum += time;
             }
         }
+        System.out.println(sum);
         return sum;
     }
 }

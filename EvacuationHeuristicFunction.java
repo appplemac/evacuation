@@ -1,6 +1,5 @@
 package com.company;
 import aima.search.framework.HeuristicFunction;
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +11,8 @@ import java.util.ArrayList;
 public class EvacuationHeuristicFunction implements HeuristicFunction {
     public double getHeuristicValue(Object a){
         State state = (State)a;
-        double res = state.calculateHeuristic();
+        int res;
+        res = state.calculateHeuristic();
         return res;
     }
 }
