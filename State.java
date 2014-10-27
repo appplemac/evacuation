@@ -187,7 +187,6 @@ public class State {
                 sum += time;
             }
         }
-        System.out.println(sum);
         return sum;
     }
 }

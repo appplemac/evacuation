@@ -39,6 +39,7 @@ public class TestHelpers {
         for (int i = 0; i < numHelisPerHq; ++i) {
             hq.addHeli(heliFactory());
         }
+        ++hqCount;
         return hq;
     }
 

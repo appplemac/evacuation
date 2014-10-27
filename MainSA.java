@@ -14,19 +14,16 @@ import java.util.List;
 public class MainSA {
     public static void main(String[] args) {
         TestHelpers helpers = new TestHelpers();
-        State state = helpers.stateFactory(4, 4, 100);
+        State state = helpers.stateFactory(4, 1, 100);
         State solution;
         try {
             solution = InitialSolution.getInitialSolution(state);
             Problem problem = new Problem(solution, new EvacuationSuccessorFunction(), new EvacuationGoalTest(), new EvacuationHeuristicFunction());
-            Search search = new SimulatedAnnealingSearch(1000, 100, 50, 0.001);
+            Search search = new SimulatedAnnealingSearch(150, 200, 50, 0.0005);
             SearchAgent searchAgent = new SearchAgent(problem, search);
             List explanations = searchAgent.getActions();
             State a = (State)search.getGoalState();
-            System.out.println("The size of explanations list is " + explanations.size()+ " Goal State :" + a.numits);
-            for (Object o:explanations) {
-//                System.out.println((String)o);
-            }
+            printState(a);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -34,4 +31,22 @@ public class MainSA {
         }
     }
 
+    public static void printState(State state) {
+        for (Headquarter hq:state.getHQs()) {
+            System.out.println("--------------");
+            System.out.println("Headquarter " + hq.getIdent());
+            System.out.println("--------------");
+            for (Helicopter h: hq.getHelicopters()) {
+                System.out.print("Helicopter " + h.getIdent() + ": ");
+                for (Pair<Integer,Integer> p:h.getItinerary()) {
+                    System.out.print(p.getFirst() + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+        System.out.println("--------------");
+        System.out.println("--------------");
+        System.out.println("Total travel time for all helicopters: " + state.calculateHeuristic());
+    }
 }
